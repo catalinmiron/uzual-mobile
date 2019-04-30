@@ -9,44 +9,63 @@ export default class Login extends React.Component {
   state = {
     email: 'mironcatalin@gmail.com',
     password: 'password',
-    isLoading: false
+    isLoading: false,
+    error: null
   }
 
   _change = (type, value) => {
     this.setState({
-      [type]: value
+      [type]: value,
+      error: null
     });
   }
 
-  _login = () => {
+  _getErrorMessage = () => {
+    const {email, password} = this.state;
+    if (!email && !password) {
+      return "Fields are mandatory"
+    }
+    if (!email) {
+      return "Email is missing"
+    }
+    if (!password) {
+      return "Password is missing"
+    }
+  }
+
+  _login = async () => {
     console.log('login')
     const {email, password} = this.state;
     if (!email || !password) {
-      return ''
+      const error = this._getErrorMessage();
+      return this.setState({
+        error
+      })
     }
-    this.setState({
+    await this.setState({
       isLoading: true
-    }, () => {
-      this.props
+    })
+
+    try {
+      const {data} = await this.props
         .login({
           variables: {
             email,
             password
           }
         })
-        .then(({data: {login: {token}}}) => {
-          return AsyncStorage.setItem(USER_ACCESS_TOKEN, token)
-        })
-        .then(() => {
-          this.props.navigation.navigate("App");
-        })
-        .catch(err => {
-          console.log(err)
-          this.setState({
-            isLoading: false
-          })
-        });
-    })
+        console.log(data.login.token)
+      if (data && data.login && data.login.token) {
+        await AsyncStorage.setItem(USER_ACCESS_TOKEN, data.login.token)
+        return this.props.navigation.navigate("App");
+      }
+    } catch(err) {
+      console.log(JSON.stringify(err))
+      this.setState({
+        isLoading: false,
+        error: err.graphQLErrors.length > 0 ? err.graphQLErrors[0].message : "Something went wrong."
+      })
+    }
   }
 
   render() {
@@ -58,6 +77,7 @@ export default class Login extends React.Component {
       <TextInput defaultValue={this.state.email} autoCapitalize={"none"} onChangeText={(e) => this._change('email', e.toLowerCase())} style={{height: 40, borderBottomColor: Colors.grey, borderBottomWidth:1, width: 260, fontFamily: 'space-mono', marginBottom: 40}}/>
       <MonoText style={{alignSelf: "flex-start", marginBottom: 10, color: Colors.grey}}>Password</MonoText>
       <TextInput defaultValue={this.state.password} secureTextEntry onChangeText={(e) => this._change('password', e)} style={{height: 40, borderBottomColor: Colors.grey, borderBottomWidth:1 , width: 260, fontFamily: 'space-mono', marginBottom: 40}}/>
+      {this.state.error && <MonoText style={{alignSelf: "flex-start", marginBottom: 10, color: Colors.errorText}}>{this.state.error}</MonoText>}
       <TouchableOpacity onPress={this._login} style={{alignItems: "center", justifyContent: "center", backgroundColor: Colors.primary, width: 260, height: 50, marginTop: 50}}>
         <MonoText style={{color: Colors.white}}>LOGIN</MonoText>
       </TouchableOpacity>
