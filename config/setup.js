@@ -8,7 +8,10 @@ import { getMainDefinition } from 'apollo-utilities';
 import { RetryLink } from 'apollo-link-retry';
 import { USER_ACCESS_TOKEN } from '../constants/auth';
 
-const URI = __DEV__ ? '10.105.99.218:4000' : 'api.uzual.app';
+const officeURI = '10.105.99.218:4000';
+// const officeURI = '10.5.5.161:4000';
+// const officeURI = '127.0.0.1:4000';
+const URI = __DEV__ ? officeURI : 'api.uzual.app';
 
 let prodUri = {
   socket: `wss://api.uzual.app`,
@@ -26,10 +29,10 @@ let uri = !__DEV__
     };
 
 const tok =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjanYydDFoNTQwMGpoMDgwNW53ZzA4ZmViIiwiaWF0IjoxNTU2NTY5MTkwfQ.7zcJKEai2lqLfQjjGiG2grlre33Ys2HCbuCjZC-26Z0';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjanYzbDN2angwMXZ0MDczN2xtaG1xMG5oIiwiaWF0IjoxNTU2NjE5ODU5fQ.jMXCbuT3-WcheHpH0aXr8pUtAyd_yrZUOwvMXbEq8_M';
 
 export default async function setupApolloClient() {
-  // await AsyncStorage.setItem('ASD', tok);
+  // await AsyncStorage.setItem(USER_ACCESS_TOKEN, tok);
   const wsLink = new WebSocketLink({
     uri: !__DEV__ ? prodUri.socket : uri.socket,
     options: {
