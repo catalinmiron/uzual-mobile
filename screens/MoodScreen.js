@@ -10,6 +10,7 @@ import { graphql, compose, withApollo } from "react-apollo";
 
 import { MonoText } from '../components/StyledText';
 import gql from 'graphql-tag';
+import FullLoading from '../components/loading/FullLoading';
 
 class MoodScreen extends React.Component {
   static navigationOptions = {
@@ -34,13 +35,13 @@ class MoodScreen extends React.Component {
   }
 
   render() {
+    if (this.props.info.loading && !this.props.info.moods) {
+      return <FullLoading />
+    }
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container}>
-          {this.props.info.loading && !this.props.info.moods ?
-            <Text style={styles.developmentModeText}>Loading</Text> :
-            this._renderX()
-          }
+            {this._renderX()}
         </ScrollView>
       </View>
     );

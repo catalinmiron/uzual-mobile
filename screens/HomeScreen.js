@@ -12,6 +12,8 @@ import { graphql, compose, withApollo } from "react-apollo";
 
 import { MonoText } from '../components/StyledText';
 import gql from 'graphql-tag';
+import Colors from '../constants/Colors';
+import FullLoading from '../components/loading/FullLoading';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -36,7 +38,7 @@ class HomeScreen extends React.Component {
                   width: 20,
                   marginRight: 1,
                   marginBottom: 1,
-                  backgroundColor: day.done ? "turquoise": "#d3d3d3"
+                  backgroundColor: day.done ? Colors.primary: Colors.grey
                 }}/>
               })}
             </View>
@@ -61,13 +63,13 @@ class HomeScreen extends React.Component {
   // }
 
   render() {
+    if (this.props.info.loading && !this.props.info.habits) {
+      return <FullLoading />
+    }
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container}>
-          {this.props.info.loading && !this.props.info.habits ?
-            <Text style={styles.developmentModeText}>Loading</Text> :
-            this._renderX()
-          }
+          { this._renderX() }
         </ScrollView>
       </View>
     );
@@ -77,17 +79,17 @@ class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
   },
   developmentModeText: {
     marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
+    color: Colors.midGrey,
+    fontSize: 12,
     lineHeight: 19,
     textAlign: 'center',
   },
   xxx: {
-    color: 'rgba(0,0,0,0.4)',
+    color: Colors.midGrey,
     fontSize: 18,
     lineHeight: 19,
     textAlign: 'center',

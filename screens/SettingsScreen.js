@@ -13,6 +13,7 @@ import { graphql, compose, withApollo } from "react-apollo";
 import { MonoText } from '../components/StyledText';
 import gql from 'graphql-tag';
 import Colors from '../constants/Colors';
+import FullLoading from '../components/loading/FullLoading';
 
 const Badge = ({isPro}) => (
   <View style={{
@@ -60,13 +61,13 @@ class SettingsScreen extends React.Component {
   }
 
   render() {
+    if (this.props.info.loading && !this.props.info.me) {
+      return <FullLoading />
+    }
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container}>
-          {this.props.info.loading && !this.props.info.me ?
-            <Text style={styles.developmentModeText}>Loading</Text> :
-            this._renderX()
-          }
+          {this._renderX()}
         </ScrollView>
       </View>
     );
