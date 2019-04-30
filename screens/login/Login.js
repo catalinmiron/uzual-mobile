@@ -54,13 +54,11 @@ export default class Login extends React.Component {
             password
           }
         })
-        console.log(data.login.token)
       if (data && data.login && data.login.token) {
         await AsyncStorage.setItem(USER_ACCESS_TOKEN, data.login.token)
         return this.props.navigation.navigate("App");
       }
     } catch(err) {
-      console.log(JSON.stringify(err))
       this.setState({
         isLoading: false,
         error: err.graphQLErrors.length > 0 ? err.graphQLErrors[0].message : "Something went wrong."
