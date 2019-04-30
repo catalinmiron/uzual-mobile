@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, AsyncStorage } from "react-native";
+import { Platform, StyleSheet, AsyncStorage } from "react-native";
+import {Icon} from 'expo';
 
 import {
   createStackNavigator,
@@ -13,24 +14,21 @@ import FullLoading from "../components/loading/FullLoading";
 // Auth
 import Login from "../screens/login/Container";
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import MoodScreen from '../screens/MoodScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import { USER_ACCESS_TOKEN } from "../constants/auth";
+import TabBarIcon from "../components/TabBarIcon";
+import Colors from "../constants/Colors";
 
-const Colors = {
-  white: "#FFF",
-  liteGrey: "rgba(46, 64, 87, 0.1)"
-};
 const TAB_BAR_HEIGHT = 56;
 
 const styles = StyleSheet.create({
   tabStyle: {
-    backgroundColor: Colors.white,
     justifyContent: "center",
-    flex: 0.2
+    flex: 0.25,
   },
   tabBarStyle: {
-    borderTopColor: Colors.liteGrey,
+    borderTopColor: Colors.tabIconDefault,
     height: TAB_BAR_HEIGHT,
     alignItems: "center",
     justifyContent: "center"
@@ -39,34 +37,6 @@ const styles = StyleSheet.create({
 
 // const TripWithMappedProps = withMappedNavigationProps(Trip);
 
-const HomeStack = createStackNavigator(
-  {
-    Home: {
-      screen: HomeScreen
-    }
-  },
-  {
-    headerMode: "none"
-  }
-);
-
-const LinksStack = createStackNavigator(
-  {
-    Links: { screen: LinksScreen }
-  },
-  {
-    headerMode: "none"
-  }
-);
-
-const SettingsStack = createStackNavigator(
-  {
-    Settings: { screen: SettingsScreen }
-  },
-  {
-    headerMode: "none"
-  }
-);
 
 const fade = props => {
   const { position, scene } = props;
@@ -87,45 +57,80 @@ const fade = props => {
   };
 };
 
+const HomeStack = createStackNavigator(
+  {
+    Home: {
+      screen: HomeScreen
+    }
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+          focused={focused}
+          name={Platform.OS === 'ios' ? 'ios-albums' : 'md-albums'}
+        />
+      )
+    }
+  }
+);
+
+const MoodStack = createStackNavigator(
+  {
+    Mood: { screen: MoodScreen }
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      tabBarLabel: 'Mood',
+      tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+          focused={focused}
+          name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+        />
+      ),
+    }
+  }
+);
+
+const SettingsStack = createStackNavigator(
+  {
+    Settings: { screen: SettingsScreen }
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      tabBarLabel: 'Mood',
+      tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+          focused={focused}
+          name={Platform.OS === 'ios' ? 'ios-cog' : 'md-cog'}
+        />
+      )
+    }
+  }
+);
+
 const AppTabs = createBottomTabNavigator(
   {
     HomeTab: { screen: HomeStack },
-    LinksTab: { screen: LinksStack },
+    MoodTab: { screen: MoodStack },
     SettingsTab: { screen: SettingsStack },
   },
   {
     // initialRouteName: "MyTripsTab",
     initialRouteName: "HomeTab",
-    order: ["HomeTab", "LinksTab", "SettingsTab"],
+    order: ["HomeTab", "MoodTab", "SettingsTab"],
     tabBarOptions: {
       style: styles.tabBarStyle,
       tabStyle: styles.tabStyle,
+      scrollEnabled: true,
       showLabel: false
     },
     navigationOptions: ({ navigation }) => ({
       tabBarPosition: "bottom",
-      // tabBarIcon: ({ tintColor, focused }) => {
-      //   switch (navigation.state.key) {
-      //     case "FeedTab":
-      //       return focused ? (
-      //         <EmojiIcon xlarge icon="earth" />
-      //       ) : (
-      //         <EmojiIcon xlarge icon="earth" style={{ opacity: 0.8 }} />
-      //       );
-      //     case "MyTripsTab":
-      //       return focused ? (
-      //         <EmojiIcon xlarge icon="pin" />
-      //       ) : (
-      //         <EmojiIcon xlarge icon="pin" style={{ opacity: 0.8 }} />
-      //       );
-      //     case "ConversationsTab":
-      //       return focused ? (
-      //         <EmojiIcon xlarge icon="chat" />
-      //       ) : (
-      //         <EmojiIcon xlarge icon="chat" style={{ opacity: 0.8 }} />
-      //       );
-      //   }
-      // }
     })
   }
 );
