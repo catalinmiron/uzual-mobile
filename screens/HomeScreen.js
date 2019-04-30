@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   AsyncStorage,
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
@@ -14,7 +13,6 @@ import { graphql, compose, withApollo } from "react-apollo";
 
 import { MonoText } from '../components/StyledText';
 import gql from 'graphql-tag';
-import { USER_ACCESS_TOKEN } from '../constants/auth';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -22,14 +20,8 @@ class HomeScreen extends React.Component {
   };
 
   _renderX = () => {
-    const {me, moods, habits} = this.props.info;
-    const {name, email, isPro} = me;
+    const {habits} = this.props.info;
     return <View style={ styles.welcomeContainer}>
-      <MonoText style={styles.xxx}>
-        {name}{' '}
-        <MonoText style={[styles.xxx, {fontWeight: '900', color: 'turquoise'}]}>{isPro ? "PRO" : "NORMAL"}</MonoText>
-      </MonoText>
-      <MonoText style={styles.developmentModeText}>{email}</MonoText>
       <View style={{flex: 1, padding: 20, alignItems: 'flex-start'}}>
         <MonoText style={[styles.xxx, {alignSelf: 'center'}]}>
           HABITS
@@ -50,17 +42,6 @@ class HomeScreen extends React.Component {
               })}
             </View>
           </View>
-        })}
-      </View>
-      <View>
-        <MonoText style={styles.xxx}>
-          MOODS
-        </MonoText>
-        <MonoText style={styles.developmentModeText}>
-          01/03/2019 - 30/03/2019
-        </MonoText>
-        {moods.map((mood) => {
-          return <MonoText key={mood.id}>{new Date(mood.date).toLocaleDateString()} - e{mood.type}</MonoText>
         })}
       </View>
       <TouchableOpacity onPress={this._logout} style={styles.helpLink}>
@@ -87,7 +68,7 @@ class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          {this.props.info.loading && !this.props.info.me ?
+          {this.props.info.loading && !this.props.info.habits ?
             <Text style={styles.developmentModeText}>Loading</Text> :
             this._renderX()
           }
@@ -95,39 +76,6 @@ class HomeScreen extends React.Component {
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({
@@ -229,20 +177,6 @@ const styles = StyleSheet.create({
 
 const query = gql`
   query myInformations{
-    me {
-      id
-      name
-      email
-      isPro
-    }
-    moods(where:{
-      date_gte:"2019-03-01",
-      date_lte:"2019-03-30"
-    }, orderBy: date_ASC) {
-      id
-      type
-      date
-    }
     habits {
       id
       title
