@@ -1,6 +1,5 @@
 import React from "react";
 import { Platform, StyleSheet, AsyncStorage } from "react-native";
-import {Icon} from 'expo';
 
 import {
   createStackNavigator,
@@ -34,8 +33,6 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-
-// const TripWithMappedProps = withMappedNavigationProps(Trip);
 
 
 const fade = props => {
@@ -88,7 +85,7 @@ const MoodStack = createStackNavigator(
       tabBarIcon: ({ focused }) => (
         <TabBarIcon
           focused={focused}
-          name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+          name={Platform.OS === 'ios' ? 'ios-pulse' : 'md-pulse'}
         />
       ),
     }
