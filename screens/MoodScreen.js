@@ -28,7 +28,7 @@ class MoodScreen extends React.Component {
           01/03/2019 - 30/03/2019
         </MonoText>
         {moods.map((mood) => {
-          return <MonoText key={mood.id}>{new Date(mood.date).toLocaleDateString()} - e{mood.type}</MonoText>
+          return <MonoText key={mood.id}>{new Date(mood.date).toLocaleDateString()} - {mood.type}</MonoText>
         })}
       </View>
     </View>
