@@ -14,5 +14,6 @@ export default {
   grey: '#d3d3d3',
   primary: tintColor,
   white: '#fff',
-  darkGrey: '#333'
+  darkGrey: '#333',
+  midGrey: 'rgba(0,0,0,0.4)'
 };
