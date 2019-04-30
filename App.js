@@ -30,7 +30,7 @@ export default class App extends React.Component {
     } else {
       return (
         <ApolloProvider client={this.apolloClient}>
-          <SafeAreaView style={{flex: 1}}>
+          <SafeAreaView style={{flex: 1}} forceInset={'always'}>
             <AppNavigator />
           </SafeAreaView>
         </ApolloProvider>

@@ -123,12 +123,10 @@ const AppTabs = createBottomTabNavigator(
     tabBarOptions: {
       style: styles.tabBarStyle,
       tabStyle: styles.tabStyle,
-      scrollEnabled: true,
-      showLabel: false
-    },
-    navigationOptions: ({ navigation }) => ({
-      tabBarPosition: "bottom",
-    })
+      showLabel: true,
+      safeAreaInset: 'never',
+      activeTintColor: Colors.tintColor
+    }
   }
 );
 

@@ -8,7 +8,8 @@ import { getMainDefinition } from 'apollo-utilities';
 import { RetryLink } from 'apollo-link-retry';
 import { USER_ACCESS_TOKEN } from '../constants/auth';
 
-const officeURI = '10.105.99.218:4000';
+const officeURI = '192.168.0.80:4000';
+// const officeURI = '10.105.99.218:4000';
 // const officeURI = '10.5.5.161:4000';
 // const officeURI = '127.0.0.1:4000';
 const URI = __DEV__ ? officeURI : 'api.uzual.app';
