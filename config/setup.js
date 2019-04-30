@@ -64,6 +64,10 @@ export default async function setupApolloClient() {
   );
 
   const retryLink = new RetryLink({
+    delay: {
+      initial: 500,
+      max: Infinity
+    },
     attempts: {
       max: Infinity,
       retryIf: (error, _operation) => {

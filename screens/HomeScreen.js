@@ -261,7 +261,9 @@ export default  compose(
   graphql(query, {
     name: 'info',
     options:{
-      fetchPolicy: 'cache-and-network'
+      pollInterval: 1000,
+      fetchPolicy: 'cache-and-network',
+      notifyOnNetworkStatusChange: true
     }
   }),
   withApollo
