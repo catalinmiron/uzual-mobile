@@ -6,7 +6,7 @@ export default {
   tabIconSelected: tintColor,
   tabBar: 'red',
   errorBackground: 'red',
-  errorText: '#fff',
+  errorText: 'rgba(242, 49, 76, 1)',
   warningBackground: '#EAEB5E',
   warningText: '#666804',
   noticeBackground: tintColor,

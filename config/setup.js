@@ -109,9 +109,9 @@ export default async function setupApolloClient() {
       fetchPolicy: 'cache-and-network',
       errorPolicy: 'all'
     },
-    mutate: {
-      errorPolicy: 'all'
-    }
+    // mutate: {
+    //   errorPolicy: 'all'
+    // }
   };
 
   // const cache = new InMemoryCache({ dataIdFromObject: o => o.id });

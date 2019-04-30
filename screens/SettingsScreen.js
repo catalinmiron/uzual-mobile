@@ -122,7 +122,7 @@ export default  compose(
   graphql(query, {
     name: 'info',
     options:{
-      pollInterval: 1000,
+      pollInterval: 20000,
       fetchPolicy: 'cache-and-network',
       notifyOnNetworkStatusChange: true
     }

@@ -48,19 +48,19 @@ class HomeScreen extends React.Component {
     </View>
   }
 
-  // componentWillMount() {
-  //   this._logout()
-  // }
+  componentWillMount() {
+    // this._logout()
+  }
 
-  // _logout= () => {
-  //   new Promise.all([
-  //     AsyncStorage.clear(),
-  //     this.props.client.cache.reset()
-  //   ])
-  //   .then(() => {
-  //     this.props.navigation.navigate("Auth");
-  //   })
-  // }
+  _logout= () => {
+    new Promise.all([
+      AsyncStorage.clear(),
+      this.props.client.cache.reset()
+    ])
+    .then(() => {
+      this.props.navigation.navigate("Auth");
+    })
+  }
 
   render() {
     if (this.props.info.loading && !this.props.info.habits) {
@@ -122,7 +122,7 @@ export default  compose(
   graphql(query, {
     name: 'info',
     options:{
-      pollInterval: 1000,
+      pollInterval: 5000,
       fetchPolicy: 'cache-and-network',
       notifyOnNetworkStatusChange: true
     }
