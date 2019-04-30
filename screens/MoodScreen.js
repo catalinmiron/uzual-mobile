@@ -1,22 +1,17 @@
 import React from 'react';
 import {
-  AsyncStorage,
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import { WebBrowser } from 'expo';
 import { graphql, compose, withApollo } from "react-apollo";
 
 import { MonoText } from '../components/StyledText';
 import gql from 'graphql-tag';
-import { USER_ACCESS_TOKEN } from '../constants/auth';
 
-class HomeScreen extends React.Component {
+class MoodScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -88,9 +83,6 @@ const styles = StyleSheet.create({
   getStartedContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
   },
   codeHighlightText: {
     color: 'rgba(96,100,109, 0.8)',
@@ -172,4 +164,4 @@ export default  compose(
     }
   }),
   withApollo
-)(HomeScreen);
+)(MoodScreen);
