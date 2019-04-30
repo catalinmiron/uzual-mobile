@@ -12,6 +12,10 @@ export default class App extends React.Component {
     hasHydrated: false,
   };
 
+  componentDidMount() {
+    Platform.OS === 'ios' && StatusBar.setBarStyle("default")
+  }
+
   render() {
     const {isLoadingComplete, hasHydrated} = this.state;
 
@@ -26,10 +30,7 @@ export default class App extends React.Component {
     } else {
       return (
         <ApolloProvider client={this.apolloClient}>
-          <View style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <AppNavigator />
-          </View>
+          <AppNavigator />
         </ApolloProvider>
       );
     }
