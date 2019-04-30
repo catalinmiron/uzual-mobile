@@ -1,14 +1,18 @@
-const tintColor = '#2f95dc';
+const tintColor = 'turquoise';
 
 export default {
   tintColor,
-  tabIconDefault: '#ccc',
+  tabIconDefault: '#d3d3d3',
   tabIconSelected: tintColor,
-  tabBar: '#fefefe',
+  tabBar: 'red',
   errorBackground: 'red',
   errorText: '#fff',
   warningBackground: '#EAEB5E',
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
+  grey: '#d3d3d3',
+  primary: tintColor,
+  white: '#fff',
+  darkGrey: '#333'
 };
