@@ -99,7 +99,7 @@ const SettingsStack = createStackNavigator(
   {
     headerMode: "none",
     navigationOptions: {
-      tabBarLabel: 'Mood',
+      tabBarLabel: 'Settings',
       tabBarIcon: ({ focused }) => (
         <TabBarIcon
           focused={focused}
