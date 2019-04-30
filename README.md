@@ -1,10 +1,13 @@
 # UZUAL
 Feed your brains with habits for a better mood
 
-<p>
-<img src="https://user-images.githubusercontent.com/2805320/56954905-4dde3d00-6b40-11e9-9cd7-f46cefb4fcea.PNG" width="40%" />
-<img src="https://user-images.githubusercontent.com/2805320/56954904-4dde3d00-6b40-11e9-9fd2-7139bf412ddd.PNG" width="40%" />
+<p style="text-align:center; display: block;">
+<img src="https://user-images.githubusercontent.com/2805320/56971313-4a12e080-6b69-11e9-84e9-bdfdf0359f5d.PNG" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/56971312-4a12e080-6b69-11e9-8aa1-f1c5fd518066.PNG" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/56971311-497a4a00-6b69-11e9-9cb6-45100adb61c6.PNG" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/56971310-497a4a00-6b69-11e9-8568-5e6a33cfc8db.PNG" width="40%" />
 </p>
+
 
 
 ```graphql
