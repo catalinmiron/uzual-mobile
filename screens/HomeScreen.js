@@ -38,8 +38,12 @@ class HomeScreen extends React.Component {
                   width: 20,
                   marginRight: 1,
                   marginBottom: 1,
+                  alignItems:"center",
+                  justifyContent:"center",
                   backgroundColor: day.done ? Colors.primary: Colors.grey
-                }}/>
+                }}>
+                  <MonoText style={{fontSize: 10, color: day.done ? Colors.white: Colors.darkGrey}}>{new Date(day.date).getDate()}</MonoText>
+                </View>
               })}
             </View>
           </View>
@@ -109,7 +113,7 @@ const query = gql`
       title
       description
       starred
-      habits(orderBy: date_DESC) {
+      habits(orderBy: date_ASC) {
         id
         date
         done
