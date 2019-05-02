@@ -36,7 +36,7 @@ class SettingsScreen extends React.Component {
     const {name, email, isPro} = me;
     return <View style={ styles.welcomeContainer}>
       <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: "center"}}>
-        <MonoText style={{fontFamily: "Menlo", fontSize: 24, marginRight: 10}}>{name}</MonoText>
+        <MonoText heading style={{fontSize: 24, marginRight: 10}}>{name}</MonoText>
         <Badge isPro={isPro} />
       </View>
       <MonoText style={styles.developmentModeText}>{email}</MonoText>

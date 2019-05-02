@@ -8,18 +8,19 @@ import { getMainDefinition } from 'apollo-utilities';
 import { RetryLink } from 'apollo-link-retry';
 import { USER_ACCESS_TOKEN } from '../constants/auth';
 
-const officeURI = '192.168.0.80:4000';
-// const officeURI = '10.105.99.218:4000';
+// const officeURI = '192.168.0.80:4000';
+const officeURI = '10.105.99.218:4000';
 // const officeURI = '10.5.5.161:4000';
 // const officeURI = '127.0.0.1:4000';
-const URI = __DEV__ ? officeURI : 'api.uzual.app';
+const isDev = __DEV__;
+const URI = isDev ? officeURI : 'api.uzual.app';
 
 let prodUri = {
   socket: `wss://api.uzual.app`,
   link: `https://api.uzual.app`
 };
 
-let uri = !__DEV__
+let uri = !isDev
   ? {
       socket: `wss://api.uzual.app`,
       link: `https://api.uzual.app`
@@ -35,7 +36,7 @@ const tok =
 export default async function setupApolloClient() {
   // await AsyncStorage.setItem(USER_ACCESS_TOKEN, tok);
   const wsLink = new WebSocketLink({
-    uri: !__DEV__ ? prodUri.socket : uri.socket,
+    uri: !isDev ? prodUri.socket : uri.socket,
     options: {
       reconnect: true,
       connectionParams: () => {
@@ -50,7 +51,7 @@ export default async function setupApolloClient() {
   });
 
   const httpLink = new HttpLink({
-    uri: !__DEV__ ? prodUri.link : uri.link
+    uri: !isDev ? prodUri.link : uri.link
   });
 
   const authMiddleware = setContext(
@@ -119,14 +120,14 @@ export default async function setupApolloClient() {
   const client = new ApolloClient({
     link,
     cache,
-    connectToDevTools: !__DEV__,
+    connectToDevTools: !isDev,
     defaultOptions
   });
 
   await persistCache({
     cache,
     storage: AsyncStorage,
-    debug: __DEV__
+    debug: isDev
   });
 
   return client;

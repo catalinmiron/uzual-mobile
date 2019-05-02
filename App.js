@@ -13,7 +13,7 @@ export default class App extends React.Component {
   };
 
   componentDidMount() {
-    Platform.OS === 'ios' && StatusBar.setBarStyle("default")
+    return Platform.OS === 'ios' && StatusBar.setBarStyle("default")
   }
 
   render() {
@@ -30,7 +30,7 @@ export default class App extends React.Component {
     } else {
       return (
         <ApolloProvider client={this.apolloClient}>
-          <SafeAreaView style={{flex: 1}} forceInset={'always'}>
+          <SafeAreaView style={{flex: 1, paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0}} forceInset="always">
             <AppNavigator />
           </SafeAreaView>
         </ApolloProvider>
@@ -52,6 +52,7 @@ export default class App extends React.Component {
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
         'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+        'Menlo': require('./assets/fonts/Menlo-Regular.ttf'),
       }),
     ]);
   };
