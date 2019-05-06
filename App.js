@@ -1,23 +1,34 @@
 import React from 'react';
-import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider } from 'react-apollo';
+import { ThemeProvider } from 'styled-components';
 import { SafeAreaView, Platform, StatusBar, StyleSheet } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
-import setupApolloClient from './config/setup'
+import setupApolloClient from './config/setup';
+import Colors from './constants/Colors';
+import { Bg } from './components/styled';
+import theme from './config/theme';
 
 export default class App extends React.Component {
   apolloClient = null;
   state = {
     isLoadingComplete: false,
-    hasHydrated: false,
+    hasHydrated: false
   };
 
   componentDidMount() {
-    return Platform.OS === 'ios' && StatusBar.setBarStyle("default")
+    return Platform.OS === 'ios' && StatusBar.setBarStyle('default');
   }
 
+  _makeTheme = () => {
+    return {
+      color: Colors,
+      ...theme
+    };
+  };
+
   render() {
-    const {isLoadingComplete, hasHydrated} = this.state;
+    const { isLoadingComplete, hasHydrated } = this.state;
 
     if (!isLoadingComplete && !hasHydrated) {
       return (
@@ -30,9 +41,11 @@ export default class App extends React.Component {
     } else {
       return (
         <ApolloProvider client={this.apolloClient}>
-          <SafeAreaView style={{flex: 1, paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0}} forceInset="always">
-            <AppNavigator />
-          </SafeAreaView>
+          <ThemeProvider theme={this._makeTheme()}>
+            <Bg forceInset="always">
+              <AppNavigator />
+            </Bg>
+          </ThemeProvider>
         </ApolloProvider>
       );
     }
@@ -44,7 +57,7 @@ export default class App extends React.Component {
     return Promise.all([
       Asset.loadAsync([
         require('./assets/images/robot-dev.png'),
-        require('./assets/images/robot-prod.png'),
+        require('./assets/images/robot-prod.png')
       ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
@@ -52,8 +65,8 @@ export default class App extends React.Component {
         // We include SpaceMono because we use it in HomeScreen.js. Feel free
         // to remove this if you are not using it in your app
         'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-        'Menlo': require('./assets/fonts/Menlo-Regular.ttf'),
-      }),
+        Menlo: require('./assets/fonts/Menlo-Regular.ttf')
+      })
     ]);
   };
 
@@ -67,10 +80,3 @@ export default class App extends React.Component {
     this.setState({ isLoadingComplete: true, hasHydrated: true });
   };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
