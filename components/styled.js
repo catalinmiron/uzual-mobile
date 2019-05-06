@@ -4,14 +4,16 @@ import styledMap, { mapToTheme as theme } from 'styled-map';
 
 const topSpacing = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
 
-const Bg = styled.SafeAreaView`
+export const Bg = styled.SafeAreaView`
   flex: 1;
-  background-color: ${props => props.theme.color.bg};
+  ${props => `
+    background-color: ${props.theme.color.bg};
+  `}
   padding-top: ${topSpacing}px;
   padding-horizontal: ${theme('spacing')}px;
 `;
 
-const Body = styled.Text`
+export const Body = styled.Text`
   font-size: ${theme('size')}px;
   color: ${theme('colors')};
   margin-bottom: ${theme('spacing')}
@@ -19,9 +21,9 @@ const Body = styled.Text`
   font-family: 'space-mono';
 `;
 
-const Heading = Body.extend`
-  font-size: 24px;
-`;
+// const Heading = Body.extend`
+//   font-size: 24px;
+// `;
 
 export default {
   Bg,
