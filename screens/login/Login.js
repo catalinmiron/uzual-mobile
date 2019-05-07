@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { USER_ACCESS_TOKEN } from '../../constants/auth';
 import FullLoading from '../../components/FullLoading';
 import {
@@ -8,7 +8,8 @@ import {
   Wrapper,
   LoginWrapper,
   Input,
-  Button
+  Button,
+  Scroll
 } from '../../components/styled';
 
 export default class Login extends React.Component {
@@ -76,39 +77,48 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <Wrapper center>
-        <LoginWrapper center>
-          <Heading xxxlarge center>
-            UZUAL
-          </Heading>
-          <Body xHuge faded center>
-            Feed your brain with habits for a better mood
-          </Body>
-          <Body left placeholder tiny>
-            Email
-          </Body>
-          <Input
-            defaultValue={this.state.email}
-            autoCapitalize={'none'}
-            onChangeText={e => this._change('email', e.toLowerCase())}
-          />
-          <Body left placeholder tiny>
-            Password
-          </Body>
-          <Input
-            defaultValue={this.state.password}
-            secureTextEntry
-            onChangeText={e => this._change('password', e)}
-          />
-          {this.state.error && <Body error>{this.state.error}</Body>}
-          <Button onPress={this._login} primary huge>
-            <Body white center noMargin>
-              LOGIN
+      <Scroll
+        scrollEnabled={false}
+        center
+        contentContainerStyle={{
+          flex: 1,
+          justifyContent: 'center'
+        }}
+      >
+        <Wrapper center>
+          <LoginWrapper center behavior="position" enabled>
+            <Heading xxxlarge center>
+              UZUAL
+            </Heading>
+            <Body xHuge faded center>
+              Feed your brain with habits for a better mood
             </Body>
-          </Button>
-        </LoginWrapper>
-        {this.state.isLoading && <FullLoading />}
-      </Wrapper>
+            <Body left placeholder tiny>
+              Email
+            </Body>
+            <Input
+              defaultValue={this.state.email}
+              autoCapitalize={'none'}
+              onChangeText={e => this._change('email', e.toLowerCase())}
+            />
+            <Body left placeholder tiny>
+              Password
+            </Body>
+            <Input
+              defaultValue={this.state.password}
+              secureTextEntry
+              onChangeText={e => this._change('password', e)}
+            />
+            {this.state.error && <Body error>{this.state.error}</Body>}
+            <Button onPress={this._login} primary huge>
+              <Body white center noMargin>
+                LOGIN
+              </Body>
+            </Button>
+          </LoginWrapper>
+          {this.state.isLoading && <FullLoading />}
+        </Wrapper>
+      </Scroll>
     );
   }
 }
