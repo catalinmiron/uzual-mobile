@@ -67,8 +67,8 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <Wrapper>
-        <LoginWrapper>
+      <Wrapper center>
+        <LoginWrapper center>
           <Heading xxxlarge center>
             UZUAL
           </Heading>

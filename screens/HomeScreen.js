@@ -1,19 +1,11 @@
 import React from 'react';
-import {
-  AsyncStorage,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import { WebBrowser } from 'expo';
+import { AsyncStorage, ScrollView, StyleSheet, View } from 'react-native';
 import { graphql, compose, withApollo } from 'react-apollo';
 
-import { MonoText } from '../components/StyledText';
 import gql from 'graphql-tag';
 import Colors from '../constants/Colors';
 import FullLoading from '../components/loading/FullLoading';
+import { Body, HabitSquare, Wrapper, Row, Block } from '../components/styled';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -23,65 +15,34 @@ class HomeScreen extends React.Component {
   _renderX = () => {
     const { habits } = this.props.info;
     return (
-      <View style={styles.welcomeContainer}>
-        <View style={{ flex: 1, paddingHorizontal: 20 }}>
-          <MonoText style={[styles.xxx, { alignSelf: 'center' }]}>
-            HABITS
-          </MonoText>
-          {habits.map(habit => {
-            return (
-              <View key={habit.id}>
-                <MonoText>
-                  {habit.title} {habit.starred && '🌟'}
-                </MonoText>
-                <MonoText
-                  style={[
-                    styles.developmentModeText,
-                    { alignSelf: 'flex-start' }
-                  ]}
-                >
-                  {habit.description}
-                </MonoText>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                    marginBottom: 20
-                  }}
-                >
-                  {habit.habits.map(day => {
-                    return (
-                      <View
-                        key={day.id}
-                        style={{
-                          height: 20,
-                          width: 20,
-                          marginRight: 1,
-                          marginBottom: 1,
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          backgroundColor: day.done
-                            ? Colors.primary
-                            : Colors.grey
-                        }}
-                      >
-                        <MonoText
-                          style={{
-                            fontSize: 10,
-                            color: day.done ? Colors.white : Colors.darkGrey
-                          }}
-                        >
-                          {new Date(day.date).getDate()}
-                        </MonoText>
-                      </View>
-                    );
-                  })}
-                </View>
-              </View>
-            );
-          })}
-        </View>
-      </View>
+      <Wrapper>
+        <Body center left>
+          HABITS
+        </Body>
+        {habits.map(habit => {
+          return (
+            <Block key={habit.id} huge>
+              <Body noMargin>
+                {habit.title} {habit.starred && '🌟'}
+              </Body>
+              <Body placeholder tiny>
+                {habit.description}
+              </Body>
+              <Row wrap>
+                {habit.habits.map(day => {
+                  return (
+                    <HabitSquare key={day.id} done={day.done}>
+                      <Body stiny white={day.done} center noMargin>
+                        {new Date(day.date).getDate()}
+                      </Body>
+                    </HabitSquare>
+                  );
+                })}
+              </Row>
+            </Block>
+          );
+        })}
+      </Wrapper>
     );
   };
 
@@ -90,10 +51,7 @@ class HomeScreen extends React.Component {
   }
 
   _logout = () => {
-    new Promise.all([
-      AsyncStorage.clear(),
-      this.props.client.cache.reset()
-    ]).then(() => {
+    new Promise.all([AsyncStorage.clear(), this.props.client.cache.reset()]).then(() => {
       this.props.navigation.navigate('Auth');
     });
   };
@@ -102,37 +60,9 @@ class HomeScreen extends React.Component {
     if (this.props.info.loading && !this.props.info.habits) {
       return <FullLoading />;
     }
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container}>{this._renderX()}</ScrollView>
-      </View>
-    );
+    return <ScrollView>{this._renderX()}</ScrollView>;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.white
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: Colors.midGrey,
-    fontSize: 12,
-    lineHeight: 19,
-    textAlign: 'center'
-  },
-  xxx: {
-    color: Colors.midGrey,
-    fontSize: 18,
-    lineHeight: 19,
-    textAlign: 'center'
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10
-  }
-});
 
 const query = gql`
   query myInformations {

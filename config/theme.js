@@ -79,7 +79,8 @@ const avatar = {
 };
 const layout = {
   radius: 10,
-  smallRadius: 7
+  smallRadius: 7,
+  habitSquareSize: 20
 };
 
 export default {
