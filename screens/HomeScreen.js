@@ -5,7 +5,7 @@ import { graphql, compose, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import Colors from '../constants/Colors';
 import FullLoading from '../components/loading/FullLoading';
-import { Body, HabitSquare, Wrapper, Row, Block } from '../components/styled';
+import { Body, Heading, HabitSquare, Wrapper, Row, Block } from '../components/styled';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -16,13 +16,13 @@ class HomeScreen extends React.Component {
     const { habits } = this.props.info;
     return (
       <Wrapper>
-        <Body center left large>
+        <Heading center left large>
           HABITS
-        </Body>
+        </Heading>
         {habits.map(habit => {
           return (
             <Block key={habit.id} huge>
-              <Body noMargin>
+              <Body noMargin medium>
                 {habit.title} {habit.starred && '🌟'}
               </Body>
               <Body placeholder tiny>
