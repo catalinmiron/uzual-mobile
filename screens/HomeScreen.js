@@ -5,7 +5,14 @@ import { graphql, compose, withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import Colors from '../constants/Colors';
 import FullLoading from '../components/loading/FullLoading';
-import { Body, Heading, HabitSquare, Wrapper, Row, Block } from '../components/styled';
+import {
+  Body,
+  Heading,
+  HabitSquare,
+  Wrapper,
+  Row,
+  Block
+} from '../components/styled';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -51,7 +58,10 @@ class HomeScreen extends React.Component {
   }
 
   _logout = () => {
-    new Promise.all([AsyncStorage.clear(), this.props.client.cache.reset()]).then(() => {
+    new Promise.all([
+      AsyncStorage.clear(),
+      this.props.client.cache.reset()
+    ]).then(() => {
       this.props.navigation.navigate('Auth');
     });
   };

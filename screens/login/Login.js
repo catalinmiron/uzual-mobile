@@ -1,9 +1,16 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, TextInput, Button, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, TextInput, AsyncStorage } from 'react-native';
 import { USER_ACCESS_TOKEN } from '../../constants/auth';
 import Colors from '../../constants/Colors';
 import FullLoading from '../../components/loading/FullLoading';
-import { Body, Heading, Wrapper, LoginWrapper, Input } from '../../components/styled';
+import {
+  Body,
+  Heading,
+  Wrapper,
+  LoginWrapper,
+  Input,
+  Button
+} from '../../components/styled';
 
 export default class Login extends React.Component {
   state = {
@@ -60,7 +67,10 @@ export default class Login extends React.Component {
     } catch (err) {
       this.setState({
         isLoading: false,
-        error: err.graphQLErrors.length > 0 ? err.graphQLErrors[0].message : 'Something went wrong.'
+        error:
+          err.graphQLErrors.length > 0
+            ? err.graphQLErrors[0].message
+            : 'Something went wrong.'
       });
     }
   };
@@ -86,23 +96,17 @@ export default class Login extends React.Component {
           <Body left placeholder tiny>
             Password
           </Body>
-          <Input defaultValue={this.state.password} secureTextEntry onChangeText={e => this._change('password', e)} />
+          <Input
+            defaultValue={this.state.password}
+            secureTextEntry
+            onChangeText={e => this._change('password', e)}
+          />
           {this.state.error && <Body error>{this.state.error}</Body>}
-          <TouchableOpacity
-            onPress={this._login}
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: Colors.primary,
-              width: 260,
-              height: 50,
-              marginTop: 50
-            }}
-          >
+          <Button onPress={this._login} primary huge>
             <Body white center noMargin>
               LOGIN
             </Body>
-          </TouchableOpacity>
+          </Button>
         </LoginWrapper>
         {this.state.isLoading && (
           <FullLoading
