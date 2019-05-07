@@ -1,4 +1,4 @@
-import { Platform, StatusBar } from 'react-native';
+import { KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import styledMap, { mapToTheme as theme } from 'styled-map';
 import SafeAreaView from 'react-native-safe-area-view';
@@ -35,7 +35,7 @@ export const Bg = styled.View`
 export const LoginWrapper = styled(Wrapper)`
   padding-horizontal: 0;
   width: 260px;
-`;
+`.withComponent(KeyboardAvoidingView);
 
 export const LoadingWrapper = styled(Wrapper)`
   position: absolute;

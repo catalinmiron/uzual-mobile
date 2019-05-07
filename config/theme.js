@@ -89,7 +89,7 @@ const layout = {
   radius: 10,
   smallRadius: 7,
   badgeRadius: 4,
-  habitSquareSize: 20,
+  habitSquareSize: 24,
   width: 260
 };
 
