@@ -9,6 +9,11 @@ export const Row = styled.View`
   flex-wrap: ${props => (props.wrap ? 'wrap' : 'nowrap')};
 `;
 
+export const RowAligned = styled(Row)`
+  align-items: ${theme('flexAlign')}
+  justify-content: ${theme('flexAlign')}
+`;
+
 export const Block = styled.View`
   margin-bottom: ${theme('spacing')};
 `;
@@ -42,6 +47,8 @@ export const Body = styled.Text`
   font-family: 'space-mono';
   text-align: ${theme('textAlign')};
   align-self: ${theme('flexAlign')}
+  margin-right: ${props =>
+    props.marginRight ? props.theme.spacing.default : 0}
 `;
 
 export const Input = styled.TextInput`
@@ -54,8 +61,23 @@ export const Input = styled.TextInput`
   width: 260px;
 `;
 
+export const Badge = styled.View`
+  background-color: ${theme('colors')}
+  border-radius: ${props => props.theme.layout.badgeRadius}
+  padding: 0 4px;
+`;
+
 export const Heading = styled(Body)`
   font-family: 'Menlo';
+`;
+
+export const Button = styled.TouchableOpacity`
+  align-items: center
+  justify-content: center
+  background-color: ${theme('colors')}
+  height: ${theme('button')};
+  width: ${props => props.width || props.theme.layout.width}
+  margin-top: ${theme('spacing')};
 `;
 
 export const HabitSquare = styled.View`
@@ -65,5 +87,6 @@ export const HabitSquare = styled.View`
   margin-bottom: 1
   align-items: center
   justify-content: center
-  backgroundColor: ${props => (props.done ? props.theme.colors.primary : props.theme.colors.shadow)}
+  backgroundColor: ${props =>
+    props.done ? props.theme.colors.primary : props.theme.colors.shadow}
 `;

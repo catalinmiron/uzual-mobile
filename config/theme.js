@@ -48,6 +48,12 @@ const height = {
   button: 60
 };
 
+const button = {
+  default: 40,
+  medium: 60,
+  big: 80
+};
+
 const fontWeight = {
   light: '300',
   regular: '400',
@@ -80,7 +86,9 @@ const avatar = {
 const layout = {
   radius: 10,
   smallRadius: 7,
-  habitSquareSize: 20
+  badgeRadius: 4,
+  habitSquareSize: 20,
+  width: 260
 };
 
 export default {
@@ -92,5 +100,6 @@ export default {
   avatar,
   height,
   flexAlign,
-  textAlign
+  textAlign,
+  button
 };
