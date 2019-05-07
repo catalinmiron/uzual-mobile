@@ -1,6 +1,7 @@
 import { Platform, StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import styledMap, { mapToTheme as theme } from 'styled-map';
+import SafeAreaView from 'react-native-safe-area-view';
 
 const topSpacing = Platform.OS === 'android' ? StatusBar.currentHeight : 0;
 
@@ -18,12 +19,6 @@ export const Block = styled.View`
   margin-bottom: ${theme('spacing')};
 `;
 
-export const Bg = styled.SafeAreaView`
-  flex: 1;
-  padding-top: ${topSpacing};
-  background-color: ${props => props.theme.colors.bg};
-`;
-
 export const Wrapper = styled.View`
   flex: 1;
   align-items: ${theme('flexAlign')};
@@ -31,6 +26,11 @@ export const Wrapper = styled.View`
   padding-horizontal: ${theme('spacing')};
   background-color: ${props => props.theme.colors.bg};
 `;
+
+export const Bg = styled.View`
+  flex: 1;
+  background-color: ${props => props.theme.colors.bg};
+`.withComponent(SafeAreaView);
 
 export const LoginWrapper = styled(Wrapper)`
   padding-horizontal: 0;

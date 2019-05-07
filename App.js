@@ -42,7 +42,7 @@ export default class App extends React.Component {
       return (
         <ApolloProvider client={this.apolloClient}>
           <ThemeProvider theme={this._makeTheme()}>
-            <Bg forceInset="always">
+            <Bg forceInset={{ bottom: 'never' }}>
               <AppNavigator />
             </Bg>
           </ThemeProvider>
