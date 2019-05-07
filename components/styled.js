@@ -13,6 +13,18 @@ export const Bg = styled.SafeAreaView`
   padding-horizontal: ${theme('spacing')}px;
 `;
 
+export const Wrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-horizontal: ${theme('spacing')}px;
+`;
+
+export const LoginWrapper = styled(Wrapper)`
+  padding-horizontal: 0;
+  width: 260px;
+`;
+
 export const Body = styled.Text`
   font-size: ${theme('size')}px;
   color: ${theme('colors')};
@@ -23,12 +35,16 @@ export const Body = styled.Text`
   align-self: ${theme('flexAlign')}
 `;
 
-export const Heading = styled(Body)`
-    font-family: 'Menlo';
+export const Input = styled.TextInput`
+  height: ${props => props.theme.height.input};
+  border-bottom-color: ${props => props.theme.colors.shadow};
+  border-bottom-width: 1px;
+  margin-bottom: ${theme('spacing')};
+  font-family: 'space-mono';
+  color: ${theme('colors')}
+  width: 260px;
 `;
 
-export default {
-    Bg,
-    Body,
-    Heading
-};
+export const Heading = styled(Body)`
+  font-family: 'Menlo';
+`;

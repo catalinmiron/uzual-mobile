@@ -1,10 +1,9 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, TextInput, Button, AsyncStorage } from 'react-native';
 import { USER_ACCESS_TOKEN } from '../../constants/auth';
-import { MonoText } from '../../components/StyledText';
 import Colors from '../../constants/Colors';
 import FullLoading from '../../components/loading/FullLoading';
-import { Body, Heading } from '../../components/styled';
+import { Body, Heading, Wrapper, LoginWrapper, Input } from '../../components/styled';
 
 export default class Login extends React.Component {
   state = {
@@ -68,16 +67,8 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            flex: 1,
-            width: 260,
-            alignItems: 'center',
-            justifyContent: 'center',
-            alignSelf: 'center'
-          }}
-        >
+      <Wrapper>
+        <LoginWrapper>
           <Heading xxxlarge center>
             UZUAL
           </Heading>
@@ -87,35 +78,15 @@ export default class Login extends React.Component {
           <Body left placeholder tiny>
             Email
           </Body>
-          <TextInput
+          <Input
             defaultValue={this.state.email}
             autoCapitalize={'none'}
             onChangeText={e => this._change('email', e.toLowerCase())}
-            style={{
-              height: 40,
-              borderBottomColor: Colors.grey,
-              borderBottomWidth: 1,
-              width: 260,
-              fontFamily: 'space-mono',
-              marginBottom: 40
-            }}
           />
           <Body left placeholder tiny>
             Password
           </Body>
-          <TextInput
-            defaultValue={this.state.password}
-            secureTextEntry
-            onChangeText={e => this._change('password', e)}
-            style={{
-              height: 40,
-              borderBottomColor: Colors.grey,
-              borderBottomWidth: 1,
-              width: 260,
-              fontFamily: 'space-mono',
-              marginBottom: 40
-            }}
-          />
+          <Input defaultValue={this.state.password} secureTextEntry onChangeText={e => this._change('password', e)} />
           {this.state.error && <Body error>{this.state.error}</Body>}
           <TouchableOpacity
             onPress={this._login}
@@ -132,7 +103,7 @@ export default class Login extends React.Component {
               LOGIN
             </Body>
           </TouchableOpacity>
-        </View>
+        </LoginWrapper>
         {this.state.isLoading && (
           <FullLoading
             style={{
@@ -141,7 +112,7 @@ export default class Login extends React.Component {
             }}
           />
         )}
-      </View>
+      </Wrapper>
     );
   }
 }
