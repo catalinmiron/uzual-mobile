@@ -16,7 +16,7 @@ class HomeScreen extends React.Component {
     const { habits } = this.props.info;
     return (
       <Wrapper>
-        <Body center left>
+        <Body center left large>
           HABITS
         </Body>
         {habits.map(habit => {
