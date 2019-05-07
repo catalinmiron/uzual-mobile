@@ -16,23 +16,9 @@ import Home from '../screens/home/Container';
 import Mood from '../screens/mood/Container';
 import Settings from '../screens/settings/Container';
 import { USER_ACCESS_TOKEN } from '../constants/auth';
-import TabBarIcon from '../components/TabBarIcon';
+import TabBarIcon from './TabBarIcon';
 import Colors from '../constants/Colors';
-
-const TAB_BAR_HEIGHT = 56;
-
-const styles = StyleSheet.create({
-  tabStyle: {
-    justifyContent: 'center',
-    flex: 0.25
-  },
-  tabBarStyle: {
-    borderTopColor: Colors.tabIconDefault,
-    height: TAB_BAR_HEIGHT,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-});
+import ThemedTabBar from './ThemedTabBar';
 
 const fade = props => {
   const { position, scene } = props;
@@ -119,13 +105,7 @@ const AppTabs = createBottomTabNavigator(
     // initialRouteName: "MyTripsTab",
     initialRouteName: 'HomeTab',
     order: ['HomeTab', 'MoodTab', 'SettingsTab'],
-    tabBarOptions: {
-      style: styles.tabBarStyle,
-      tabStyle: styles.tabStyle,
-      showLabel: true,
-      safeAreaInset: 'never',
-      activeTintColor: Colors.tintColor
-    }
+    tabBarComponent: ThemedTabBar
   }
 );
 
