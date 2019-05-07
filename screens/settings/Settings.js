@@ -1,17 +1,15 @@
 import React from 'react';
-import { AsyncStorage, ScrollView, StyleSheet, View } from 'react-native';
-import { graphql, compose, withApollo } from 'react-apollo';
-
-import gql from 'graphql-tag';
-import FullLoading from '../components/loading/FullLoading';
+import { AsyncStorage } from 'react-native';
+import FullLoading from '../../components/FullLoading';
 import {
   Body,
   Heading,
   Wrapper,
   RowAligned,
   Button,
-  Badge
-} from '../components/styled';
+  Badge,
+  Scroll
+} from '../../components/styled';
 
 const ProBadge = ({ isPro }) => (
   <Badge primary={isPro} shadow={!isPro}>
@@ -20,13 +18,14 @@ const ProBadge = ({ isPro }) => (
     </Body>
   </Badge>
 );
-class SettingsScreen extends React.Component {
+
+export default class Settings extends React.Component {
   static navigationOptions = {
     header: null
   };
 
   _renderX = () => {
-    const { me } = this.props.info;
+    const { me } = this.props.data;
     const { name, email, isPro } = me;
     return (
       <Wrapper center>
@@ -56,32 +55,9 @@ class SettingsScreen extends React.Component {
   };
 
   render() {
-    if (this.props.info.loading && !this.props.info.me) {
+    if (this.props.data.loading && !this.props.data.me) {
       return <FullLoading />;
     }
-    return <ScrollView>{this._renderX()}</ScrollView>;
+    return <Scroll>{this._renderX()}</Scroll>;
   }
 }
-
-const query = gql`
-  query myInformations {
-    me {
-      id
-      name
-      email
-      isPro
-    }
-  }
-`;
-
-export default compose(
-  graphql(query, {
-    name: 'info',
-    options: {
-      pollInterval: 20000,
-      fetchPolicy: 'cache-and-network',
-      notifyOnNetworkStatusChange: true
-    }
-  }),
-  withApollo
-)(SettingsScreen);

@@ -8,7 +8,7 @@ import {
   createAppContainer
 } from 'react-navigation';
 
-import FullLoading from '../components/loading/FullLoading';
+import FullLoading from '../components/FullLoading';
 
 // Auth
 import Login from '../screens/login/Container';
@@ -56,11 +56,11 @@ const fade = props => {
 const HomeStack = createStackNavigator(
   {
     Home: {
-      screen: HomeScreen
+      screen: Home
     }
   },
   {
-    headerMode: "none",
+    headerMode: 'none',
     navigationOptions: {
       tabBarLabel: 'Home',
       tabBarIcon: ({ focused }) => (
@@ -75,10 +75,10 @@ const HomeStack = createStackNavigator(
 
 const MoodStack = createStackNavigator(
   {
-    Mood: { screen: MoodScreen }
+    Mood: { screen: Mood }
   },
   {
-    headerMode: "none",
+    headerMode: 'none',
     navigationOptions: {
       tabBarLabel: 'Mood',
       tabBarIcon: ({ focused }) => (
@@ -86,17 +86,17 @@ const MoodStack = createStackNavigator(
           focused={focused}
           name={Platform.OS === 'ios' ? 'ios-pulse' : 'md-pulse'}
         />
-      ),
+      )
     }
   }
 );
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: { screen: SettingsScreen }
+    Settings: { screen: Settings }
   },
   {
-    headerMode: "none",
+    headerMode: 'none',
     navigationOptions: {
       tabBarLabel: 'Settings',
       tabBarIcon: ({ focused }) => (
@@ -113,12 +113,12 @@ const AppTabs = createBottomTabNavigator(
   {
     HomeTab: { screen: HomeStack },
     MoodTab: { screen: MoodStack },
-    SettingsTab: { screen: SettingsStack },
+    SettingsTab: { screen: SettingsStack }
   },
   {
     // initialRouteName: "MyTripsTab",
-    initialRouteName: "HomeTab",
-    order: ["HomeTab", "MoodTab", "SettingsTab"],
+    initialRouteName: 'HomeTab',
+    order: ['HomeTab', 'MoodTab', 'SettingsTab'],
     tabBarOptions: {
       style: styles.tabBarStyle,
       tabStyle: styles.tabStyle,
@@ -139,8 +139,8 @@ const AppRoutes = createStackNavigator(
     AppTabs: { screen: AppTabs }
   },
   {
-    initialRouteName: "AppTabs",
-    headerMode: "none"
+    initialRouteName: 'AppTabs',
+    headerMode: 'none'
   }
 );
 
@@ -149,7 +149,7 @@ const AuthStack = createStackNavigator(
     Login: { screen: Login }
   },
   {
-    headerMode: "none"
+    headerMode: 'none'
   }
 );
 
@@ -174,7 +174,7 @@ class Switch extends React.PureComponent {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(token ? "App" : "Auth");
+    this.props.navigation.navigate(token ? 'App' : 'Auth');
   };
 
   // Render any loading content that you like here
@@ -183,16 +183,18 @@ class Switch extends React.PureComponent {
   }
 }
 
-const RootSwitch = createAppContainer(createSwitchNavigator(
-  {
-    Switch: Switch,
-    Auth: AuthStack,
-    App: AppRoutes
-  },
-  {
-    initialRouteName: "Switch"
-  }
-));
+const RootSwitch = createAppContainer(
+  createSwitchNavigator(
+    {
+      Switch: Switch,
+      Auth: AuthStack,
+      App: AppRoutes
+    },
+    {
+      initialRouteName: 'Switch'
+    }
+  )
+);
 
 export default RootSwitch;
 

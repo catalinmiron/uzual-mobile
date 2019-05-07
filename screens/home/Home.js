@@ -1,29 +1,26 @@
 import React from 'react';
-import { AsyncStorage, ScrollView, StyleSheet, View } from 'react-native';
-import { graphql, compose, withApollo } from 'react-apollo';
-
-import gql from 'graphql-tag';
-import Colors from '../constants/Colors';
-import FullLoading from '../components/loading/FullLoading';
+import { AsyncStorage, ScrollView } from 'react-native';
+import FullLoading from '../../components/FullLoading';
 import {
   Body,
   Heading,
   HabitSquare,
   Wrapper,
   Row,
-  Block
-} from '../components/styled';
+  Block,
+  Scroll
+} from '../../components/styled';
 
-class HomeScreen extends React.Component {
+export default class Home extends React.Component {
   static navigationOptions = {
     header: null
   };
 
   _renderX = () => {
-    const { habits } = this.props.info;
+    const { habits } = this.props.data;
     return (
       <Wrapper>
-        <Heading center left large>
+        <Heading left large>
           HABITS
         </Heading>
         {habits.map(habit => {
@@ -67,37 +64,9 @@ class HomeScreen extends React.Component {
   };
 
   render() {
-    if (this.props.info.loading && !this.props.info.habits) {
+    if (this.props.data.loading && !this.props.data.habits) {
       return <FullLoading />;
     }
-    return <ScrollView>{this._renderX()}</ScrollView>;
+    return <Scroll>{this._renderX()}</Scroll>;
   }
 }
-
-const query = gql`
-  query myInformations {
-    habits {
-      id
-      title
-      description
-      starred
-      habits(orderBy: date_ASC) {
-        id
-        date
-        done
-      }
-    }
-  }
-`;
-
-export default compose(
-  graphql(query, {
-    name: 'info',
-    options: {
-      pollInterval: 5000,
-      fetchPolicy: 'cache-and-network',
-      notifyOnNetworkStatusChange: true
-    }
-  }),
-  withApollo
-)(HomeScreen);

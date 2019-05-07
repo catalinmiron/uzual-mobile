@@ -1,8 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, AsyncStorage } from 'react-native';
 import { USER_ACCESS_TOKEN } from '../../constants/auth';
-import Colors from '../../constants/Colors';
-import FullLoading from '../../components/loading/FullLoading';
+import FullLoading from '../../components/FullLoading';
 import {
   Body,
   Heading,
@@ -108,14 +107,7 @@ export default class Login extends React.Component {
             </Body>
           </Button>
         </LoginWrapper>
-        {this.state.isLoading && (
-          <FullLoading
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              backgroundColor: 'rgba(255,255,255,0.9)'
-            }}
-          />
-        )}
+        {this.state.isLoading && <FullLoading />}
       </Wrapper>
     );
   }
