@@ -20,23 +20,35 @@ export const Block = styled.View`
 
 export const Bg = styled.SafeAreaView`
   flex: 1;
-  ${props => `
-    background-color: ${props.theme.color.bg};
-  `}
-  padding-top: ${topSpacing}px;
-  padding-horizontal: ${theme('spacing')}px;
+  padding-top: ${topSpacing};
+  background-color: ${props => props.theme.colors.bg};
 `;
 
 export const Wrapper = styled.View`
   flex: 1;
   align-items: ${theme('flexAlign')};
   justify-content: ${theme('flexAlign')};
-  padding-horizontal: ${theme('spacing')}px;
+  padding-horizontal: ${theme('spacing')};
+  background-color: ${props => props.theme.colors.bg};
 `;
 
 export const LoginWrapper = styled(Wrapper)`
   padding-horizontal: 0;
   width: 260px;
+`;
+
+export const LoadingWrapper = styled(Wrapper)`
+  position: absolute;
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background-color: ${props => props.theme.colors.loadingBg}
+`;
+
+export const Scroll = styled.ScrollView`
+  flex: 1
+  background-color: ${props => props.theme.colors.bg};
 `;
 
 export const Body = styled.Text`

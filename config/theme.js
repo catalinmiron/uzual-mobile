@@ -6,7 +6,8 @@ const colors = {
   placeholder: '#9B9B9B',
   shadow: '#ddd',
   subheading: '#6D6D6D',
-  error: 'rgba(242, 49, 76, 1)'
+  error: 'rgba(242, 49, 76, 1)',
+  loadingBg: 'rgba(255, 255, 255, 0.9)'
 };
 
 const spacing = {

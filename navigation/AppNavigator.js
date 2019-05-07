@@ -1,39 +1,38 @@
-import React from "react";
-import { Platform, StyleSheet, AsyncStorage } from "react-native";
+import React from 'react';
+import { Platform, StyleSheet, AsyncStorage } from 'react-native';
 
 import {
   createStackNavigator,
   createBottomTabNavigator,
   createSwitchNavigator,
   createAppContainer
-} from "react-navigation";
+} from 'react-navigation';
 
-import FullLoading from "../components/loading/FullLoading";
+import FullLoading from '../components/loading/FullLoading';
 
 // Auth
-import Login from "../screens/login/Container";
-import HomeScreen from '../screens/HomeScreen';
-import MoodScreen from '../screens/MoodScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import { USER_ACCESS_TOKEN } from "../constants/auth";
-import TabBarIcon from "../components/TabBarIcon";
-import Colors from "../constants/Colors";
+import Login from '../screens/login/Container';
+import Home from '../screens/home/Container';
+import Mood from '../screens/mood/Container';
+import Settings from '../screens/settings/Container';
+import { USER_ACCESS_TOKEN } from '../constants/auth';
+import TabBarIcon from '../components/TabBarIcon';
+import Colors from '../constants/Colors';
 
 const TAB_BAR_HEIGHT = 56;
 
 const styles = StyleSheet.create({
   tabStyle: {
-    justifyContent: "center",
-    flex: 0.25,
+    justifyContent: 'center',
+    flex: 0.25
   },
   tabBarStyle: {
     borderTopColor: Colors.tabIconDefault,
     height: TAB_BAR_HEIGHT,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
-
 
 const fade = props => {
   const { position, scene } = props;
