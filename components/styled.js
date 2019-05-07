@@ -19,14 +19,16 @@ export const Body = styled.Text`
   margin-bottom: ${theme('spacing')}
   opacity: ${props => (props.faded ? 0.6 : 1)};
   font-family: 'space-mono';
+  text-align: ${theme('textAlign')};
+  align-self: ${theme('flexAlign')}
 `;
 
-// const Heading = Body.extend`
-//   font-size: 24px;
-// `;
+export const Heading = styled(Body)`
+    font-family: 'Menlo';
+`;
 
 export default {
-  Bg,
-  Body
-  // Heading
+    Bg,
+    Body,
+    Heading
 };
