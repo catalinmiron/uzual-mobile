@@ -2,12 +2,24 @@
 
 Feed your brains with habits for a better mood
 
+## Light Theme
+
 <p style="text-align:center; display: block;">
 <img src="https://user-images.githubusercontent.com/2805320/57558626-b4542e00-737e-11e9-8bb7-7a5eeea5b22a.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57558625-b4542e00-737e-11e9-9cbf-afe2ac9fab7c.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/56971312-4a12e080-6b69-11e9-8aa1-f1c5fd518066.PNG" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/56971311-497a4a00-6b69-11e9-9cb6-45100adb61c6.PNG" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/56971310-497a4a00-6b69-11e9-8568-5e6a33cfc8db.PNG" width="40%" />
+</p>
+
+## Dark Theme
+
+<p style="text-align:center; display: block;">
+<img src="https://user-images.githubusercontent.com/2805320/57559606-0ac36b80-7383-11e9-8a25-3cebefb1821a.png" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/57559607-0ac36b80-7383-11e9-91c5-c9759795dee9.png" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/57559608-0ac36b80-7383-11e9-82fb-ee1e49f0fe08.png" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/57559611-0b5c0200-7383-11e9-9b9d-38e8d3e1afb7.png" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/57559612-0b5c0200-7383-11e9-8873-3e5c9bef13bf.png" width="40%" />
 </p>
 
 ```graphql

@@ -12,6 +12,15 @@ const colors = {
   noBg: 'transparent'
 };
 
+const colorsDark = {
+  ...colors,
+  bg: '#222',
+  default: '#d3d3d3',
+  tabBar: '#333',
+  shadow: 'rgba(255, 255, 255, 0.25)',
+  loadingBg: 'rgba(0, 0, 0, 0.9)'
+};
+
 const spacing = {
   small: 10,
   normal: 14,
@@ -94,8 +103,8 @@ const layout = {
   width: 260
 };
 
-export default {
-  colors,
+export default (theme = 'light') => ({
+  colors: theme === 'light' ? colors : colorsDark,
   spacing,
   layout,
   size,
@@ -105,4 +114,4 @@ export default {
   flexAlign,
   textAlign,
   button
-};
+});
