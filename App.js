@@ -9,21 +9,39 @@ import Colors from './constants/Colors';
 import { Bg } from './components/styled';
 import theme from './config/theme';
 
+export const ThemeContext = React.createContext(null);
+
 export default class App extends React.Component {
   apolloClient = null;
   state = {
     isLoadingComplete: false,
-    hasHydrated: false
+    hasHydrated: false,
+    theme: 'dark'
+  };
+
+  toggleTheme = () => {
+    this.setState(
+      ({ theme }) => ({
+        theme: theme === 'light' ? 'dark' : 'light'
+      }),
+      this._changeStatusBarStyle
+    );
+  };
+
+  _changeStatusBarStyle = () => {
+    StatusBar.setBarStyle(
+      this.state.theme === 'light' ? 'default' : 'light-content'
+    );
   };
 
   componentDidMount() {
-    return Platform.OS === 'ios' && StatusBar.setBarStyle('default');
+    return Platform.OS === 'ios' && this._changeStatusBarStyle();
   }
 
   _makeTheme = () => {
     return {
       color: Colors,
-      ...theme
+      ...theme(this.state.theme)
     };
   };
 
@@ -41,11 +59,15 @@ export default class App extends React.Component {
     } else {
       return (
         <ApolloProvider client={this.apolloClient}>
-          <ThemeProvider theme={this._makeTheme()}>
-            <Bg forceInset={{ bottom: 'never' }}>
-              <AppNavigator />
-            </Bg>
-          </ThemeProvider>
+          <ThemeContext.Provider
+            value={{ theme: this.state.theme, toggleTheme: this.toggleTheme }}
+          >
+            <ThemeProvider theme={this._makeTheme()}>
+              <Bg forceInset={{ bottom: 'never' }}>
+                <AppNavigator />
+              </Bg>
+            </ThemeProvider>
+          </ThemeContext.Provider>
         </ApolloProvider>
       );
     }

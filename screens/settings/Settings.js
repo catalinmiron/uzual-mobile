@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Switch } from 'react-native';
 import FullLoading from '../../components/FullLoading';
 import {
   Body,
@@ -8,8 +8,12 @@ import {
   RowAligned,
   Button,
   Badge,
-  Scroll
+  Scroll,
+  Row,
+  Spacer
 } from '../../components/styled';
+
+import { ThemeContext } from '../../App';
 
 const ProBadge = ({ isPro }) => (
   <Badge primary={isPro} shadow={!isPro}>
@@ -41,6 +45,20 @@ export default class Settings extends React.Component {
             Logout
           </Body>
         </Button>
+        <ThemeContext.Consumer>
+          {({ toggleTheme, theme }) => (
+            <Spacer>
+              <Row>
+                <Body>Dark theme?</Body>
+                <Switch
+                  value={theme === 'dark' ? true : false}
+                  onValueChange={toggleTheme}
+                  trackColor={this.props.theme.colors.primary}
+                />
+              </Row>
+            </Spacer>
+          )}
+        </ThemeContext.Consumer>
       </Wrapper>
     );
   };
