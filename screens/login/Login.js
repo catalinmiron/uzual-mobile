@@ -9,7 +9,8 @@ import {
   LoginWrapper,
   Input,
   Button,
-  Scroll
+  Scroll,
+  Spacer
 } from '../../components/styled';
 
 export default class Login extends React.Component {
@@ -38,6 +39,10 @@ export default class Login extends React.Component {
     if (!password) {
       return 'Password is missing';
     }
+  };
+
+  _goToRegister = () => {
+    this.props.navigation.navigate('Register');
   };
 
   _login = async () => {
@@ -113,6 +118,16 @@ export default class Login extends React.Component {
             <Button onPress={this._login} primary huge>
               <Body white center noMargin>
                 LOGIN
+              </Body>
+            </Button>
+            <Spacer big>
+              <Body shadow center noMargin>
+                OR
+              </Body>
+            </Spacer>
+            <Button onPress={this._goToRegister} noBg noMargin huge>
+              <Body center noMargin>
+                REGISTER
               </Body>
             </Button>
           </LoginWrapper>
