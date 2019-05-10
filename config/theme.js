@@ -8,7 +8,8 @@ const colors = {
   subheading: '#6D6D6D',
   error: 'rgba(242, 49, 76, 1)',
   loadingBg: 'rgba(255, 255, 255, 0.9)',
-  tabBar: 'white'
+  tabBar: 'white',
+  noBg: 'transparent'
 };
 
 const spacing = {

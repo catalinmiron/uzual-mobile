@@ -13,10 +13,11 @@ import {
   Spacer
 } from '../../components/styled';
 
-export default class Login extends React.Component {
+export default class Register extends React.Component {
   state = {
     email: 'mironcatalin@gmail.com',
     password: 'password',
+    name: 'Catalin Miron',
     isLoading: false,
     error: null
   };
@@ -41,13 +42,9 @@ export default class Login extends React.Component {
     }
   };
 
-  _goToRegister = () => {
-    this.props.navigation.navigate('Register');
-  };
-
-  _login = async () => {
-    console.log('login');
-    const { email, password } = this.state;
+  _register = async () => {
+    console.log('register');
+    const { email, password, name } = this.state;
     if (!email || !password) {
       const error = this._getErrorMessage();
       return this.setState({
@@ -59,14 +56,15 @@ export default class Login extends React.Component {
     });
 
     try {
-      const { data } = await this.props.login({
+      const { data } = await this.props.register({
         variables: {
           email,
-          password
+          password,
+          name
         }
       });
-      if (data && data.login && data.login.token) {
-        await AsyncStorage.setItem(USER_ACCESS_TOKEN, data.login.token);
+      if (data && data.register && data.register.token) {
+        await AsyncStorage.setItem(USER_ACCESS_TOKEN, data.register.token);
         return this.props.navigation.navigate('App');
       }
     } catch (err) {
@@ -78,6 +76,10 @@ export default class Login extends React.Component {
             : 'Something went wrong.'
       });
     }
+  };
+
+  _goToLogin = () => {
+    this.props.navigation.goBack();
   };
 
   render() {
@@ -99,6 +101,13 @@ export default class Login extends React.Component {
               Feed your brain with habits for a better mood
             </Body>
             <Body left placeholder tiny>
+              Name
+            </Body>
+            <Input
+              defaultValue={this.state.name}
+              onChangeText={e => this._change('name', e)}
+            />
+            <Body left placeholder tiny>
               Email
             </Body>
             <Input
@@ -115,9 +124,9 @@ export default class Login extends React.Component {
               onChangeText={e => this._change('password', e)}
             />
             {this.state.error && <Body error>{this.state.error}</Body>}
-            <Button onPress={this._login} primary huge>
+            <Button onPress={this._register} primary huge>
               <Body white center noMargin>
-                LOGIN
+                REGISTER
               </Body>
             </Button>
             <Spacer big>
@@ -125,9 +134,9 @@ export default class Login extends React.Component {
                 OR
               </Body>
             </Spacer>
-            <Button onPress={this._goToRegister} noBg noMargin huge>
+            <Button onPress={this._goToLogin} noBg huge noMargin>
               <Body center noMargin>
-                REGISTER
+                LOGIN
               </Body>
             </Button>
           </LoginWrapper>

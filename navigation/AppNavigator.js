@@ -12,6 +12,7 @@ import FullLoading from '../components/FullLoading';
 
 // Auth
 import Login from '../screens/login/Container';
+import Register from '../screens/register/Container';
 import Home from '../screens/home/Container';
 import Mood from '../screens/mood/Container';
 import Settings from '../screens/settings/Container';
@@ -111,11 +112,6 @@ const AppTabs = createBottomTabNavigator(
 
 const AppRoutes = createStackNavigator(
   {
-    // CreateTrip: { screen: CreateTrip },
-    // Trip: {
-    //   screen: Trip,
-    //   path: "trip/:tripId"
-    // },
     AppTabs: { screen: AppTabs }
   },
   {
@@ -126,7 +122,8 @@ const AppRoutes = createStackNavigator(
 
 const AuthStack = createStackNavigator(
   {
-    Login: { screen: Login }
+    Login: { screen: Login },
+    Register: { screen: Register }
   },
   {
     headerMode: 'none'

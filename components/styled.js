@@ -19,6 +19,10 @@ export const Block = styled.View`
   margin-bottom: ${theme('spacing')};
 `;
 
+export const Spacer = styled(Block)`
+  margin-top: ${theme('spacing')};
+`;
+
 export const Wrapper = styled.View`
   flex: 1;
   align-items: ${theme('flexAlign')};
@@ -82,7 +86,6 @@ export const Badge = styled.View`
 export const Heading = styled(Body)`
   font-family: 'Menlo';
 `;
-
 export const Button = styled.TouchableOpacity`
   align-items: center
   justify-content: center
