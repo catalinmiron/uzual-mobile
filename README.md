@@ -1,28 +1,31 @@
 # UZUAL
+
 Feed your brains with habits for a better mood
 
 <p style="text-align:center; display: block;">
-<img src="https://user-images.githubusercontent.com/2805320/56971313-4a12e080-6b69-11e9-84e9-bdfdf0359f5d.PNG" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/57558626-b4542e00-737e-11e9-8bb7-7a5eeea5b22a.png" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/57558625-b4542e00-737e-11e9-9cbf-afe2ac9fab7c.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/56971312-4a12e080-6b69-11e9-8aa1-f1c5fd518066.PNG" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/56971311-497a4a00-6b69-11e9-9cb6-45100adb61c6.PNG" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/56971310-497a4a00-6b69-11e9-8568-5e6a33cfc8db.PNG" width="40%" />
 </p>
 
-
-
 ```graphql
-mutation createUser{
-  signup(email:"mironcatalin@gmail.com", name:"Catalin Miron", password:"password") {
+mutation createUser {
+  signup(
+    email: "mironcatalin@gmail.com"
+    name: "Catalin Miron"
+    password: "password"
+  ) {
     token
   }
 }
 
-mutation signin{
-  login(email:"mironcatalin@gmail.com", password:"password") {
+mutation signin {
+  login(email: "mironcatalin@gmail.com", password: "password") {
     token
   }
 }
-
 
 # mutation addHabit{
 #   addHabit(title:"1 Coffee / day", description:"Just one coffee and see how it feels"){
@@ -62,12 +65,12 @@ query me {
   }
 }
 
-query getHabits{
-  habits{
+query getHabits {
+  habits {
     id
     title
     description
-    habits{
+    habits {
       id
       done
       date
@@ -76,24 +79,28 @@ query getHabits{
 }
 
 query myMoods {
-  moods(where:{
-    date_gte:"2019-03-01",
-    date_lte:"2019-03-30"
-  }, orderBy: date_ASC){
+  moods(
+    where: { date_gte: "2019-03-01", date_lte: "2019-03-30" }
+    orderBy: date_ASC
+  ) {
     id
     type
     date
   }
 }
 
-mutation setMood{
+mutation setMood {
   setMood(date: "2019-04-23", type: Frown) {
     id
   }
 }
 
-mutation setDailyHabit{
-  setDailyHabit(id:"cjuxtixuk0066073847pvhos9", done: false, date:"2019-04-01") {
+mutation setDailyHabit {
+  setDailyHabit(
+    id: "cjuxtixuk0066073847pvhos9"
+    done: false
+    date: "2019-04-01"
+  ) {
     done
   }
 }
