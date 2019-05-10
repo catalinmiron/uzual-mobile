@@ -1,0 +1,14 @@
+import gql from 'graphql-tag';
+
+const me = gql`
+  query me {
+    me {
+      id
+      name
+      email
+      isPro
+    }
+  }
+`;
+
+export default { me };

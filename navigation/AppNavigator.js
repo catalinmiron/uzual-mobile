@@ -1,39 +1,24 @@
-import React from "react";
-import { Platform, StyleSheet, AsyncStorage } from "react-native";
+import React from 'react';
+import { Platform, StyleSheet, AsyncStorage } from 'react-native';
 
 import {
   createStackNavigator,
   createBottomTabNavigator,
   createSwitchNavigator,
   createAppContainer
-} from "react-navigation";
+} from 'react-navigation';
 
-import FullLoading from "../components/loading/FullLoading";
+import FullLoading from '../components/FullLoading';
 
 // Auth
-import Login from "../screens/login/Container";
-import HomeScreen from '../screens/HomeScreen';
-import MoodScreen from '../screens/MoodScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import { USER_ACCESS_TOKEN } from "../constants/auth";
-import TabBarIcon from "../components/TabBarIcon";
-import Colors from "../constants/Colors";
-
-const TAB_BAR_HEIGHT = 56;
-
-const styles = StyleSheet.create({
-  tabStyle: {
-    justifyContent: "center",
-    flex: 0.25,
-  },
-  tabBarStyle: {
-    borderTopColor: Colors.tabIconDefault,
-    height: TAB_BAR_HEIGHT,
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
-
+import Login from '../screens/login/Container';
+import Home from '../screens/home/Container';
+import Mood from '../screens/mood/Container';
+import Settings from '../screens/settings/Container';
+import { USER_ACCESS_TOKEN } from '../constants/auth';
+import TabBarIcon from './TabBarIcon';
+import Colors from '../constants/Colors';
+import ThemedTabBar from './ThemedTabBar';
 
 const fade = props => {
   const { position, scene } = props;
@@ -57,11 +42,11 @@ const fade = props => {
 const HomeStack = createStackNavigator(
   {
     Home: {
-      screen: HomeScreen
+      screen: Home
     }
   },
   {
-    headerMode: "none",
+    headerMode: 'none',
     navigationOptions: {
       tabBarLabel: 'Home',
       tabBarIcon: ({ focused }) => (
@@ -76,10 +61,10 @@ const HomeStack = createStackNavigator(
 
 const MoodStack = createStackNavigator(
   {
-    Mood: { screen: MoodScreen }
+    Mood: { screen: Mood }
   },
   {
-    headerMode: "none",
+    headerMode: 'none',
     navigationOptions: {
       tabBarLabel: 'Mood',
       tabBarIcon: ({ focused }) => (
@@ -87,17 +72,17 @@ const MoodStack = createStackNavigator(
           focused={focused}
           name={Platform.OS === 'ios' ? 'ios-pulse' : 'md-pulse'}
         />
-      ),
+      )
     }
   }
 );
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: { screen: SettingsScreen }
+    Settings: { screen: Settings }
   },
   {
-    headerMode: "none",
+    headerMode: 'none',
     navigationOptions: {
       tabBarLabel: 'Settings',
       tabBarIcon: ({ focused }) => (
@@ -114,19 +99,13 @@ const AppTabs = createBottomTabNavigator(
   {
     HomeTab: { screen: HomeStack },
     MoodTab: { screen: MoodStack },
-    SettingsTab: { screen: SettingsStack },
+    SettingsTab: { screen: SettingsStack }
   },
   {
     // initialRouteName: "MyTripsTab",
-    initialRouteName: "HomeTab",
-    order: ["HomeTab", "MoodTab", "SettingsTab"],
-    tabBarOptions: {
-      style: styles.tabBarStyle,
-      tabStyle: styles.tabStyle,
-      showLabel: true,
-      safeAreaInset: 'never',
-      activeTintColor: Colors.tintColor
-    }
+    initialRouteName: 'HomeTab',
+    order: ['HomeTab', 'MoodTab', 'SettingsTab'],
+    tabBarComponent: ThemedTabBar
   }
 );
 
@@ -140,8 +119,8 @@ const AppRoutes = createStackNavigator(
     AppTabs: { screen: AppTabs }
   },
   {
-    initialRouteName: "AppTabs",
-    headerMode: "none"
+    initialRouteName: 'AppTabs',
+    headerMode: 'none'
   }
 );
 
@@ -150,7 +129,7 @@ const AuthStack = createStackNavigator(
     Login: { screen: Login }
   },
   {
-    headerMode: "none"
+    headerMode: 'none'
   }
 );
 
@@ -175,7 +154,7 @@ class Switch extends React.PureComponent {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(token ? "App" : "Auth");
+    this.props.navigation.navigate(token ? 'App' : 'Auth');
   };
 
   // Render any loading content that you like here
@@ -184,16 +163,18 @@ class Switch extends React.PureComponent {
   }
 }
 
-const RootSwitch = createAppContainer(createSwitchNavigator(
-  {
-    Switch: Switch,
-    Auth: AuthStack,
-    App: AppRoutes
-  },
-  {
-    initialRouteName: "Switch"
-  }
-));
+const RootSwitch = createAppContainer(
+  createSwitchNavigator(
+    {
+      Switch: Switch,
+      Auth: AuthStack,
+      App: AppRoutes
+    },
+    {
+      initialRouteName: 'Switch'
+    }
+  )
+);
 
 export default RootSwitch;
 
