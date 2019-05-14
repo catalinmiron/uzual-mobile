@@ -8,12 +8,17 @@ import {
   Wrapper,
   Row,
   Block,
-  Scroll
+  Scroll,
+  FabButton
 } from '../../components/styled';
 
 export default class Home extends React.Component {
   static navigationOptions = {
     header: null
+  };
+
+  _onFabPress = () => {
+    this.props.navigation.navigate('CreateHabit');
   };
 
   _renderHabits = () => {
@@ -92,6 +97,15 @@ export default class Home extends React.Component {
       return <FullLoading />;
     }
 
-    return <Scroll>{this._renderHabits()}</Scroll>;
+    return (
+      <React.Fragment>
+        <Scroll>{this._renderHabits()}</Scroll>
+        <FabButton onPress={this._onFabPress} big>
+          <Body white noMargin xlarge center>
+            +
+          </Body>
+        </FabButton>
+      </React.Fragment>
+    );
   }
 }
