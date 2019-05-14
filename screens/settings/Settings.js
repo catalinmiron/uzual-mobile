@@ -51,7 +51,7 @@ export default class Settings extends React.Component {
               <Row>
                 <Body>Dark theme?</Body>
                 <Switch
-                  value={theme === 'dark' ? true : false}
+                  value={theme === 'dark'}
                   onValueChange={toggleTheme}
                   trackColor={this.props.theme.colors.primary}
                 />

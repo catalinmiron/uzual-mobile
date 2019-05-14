@@ -14,6 +14,7 @@ import FullLoading from '../components/FullLoading';
 import Login from '../screens/login/Container';
 import Register from '../screens/register/Container';
 import Home from '../screens/home/Container';
+import CreateHabit from '../screens/createHabit/Container';
 import Mood from '../screens/mood/Container';
 import Settings from '../screens/settings/Container';
 import { USER_ACCESS_TOKEN } from '../constants/auth';
@@ -112,7 +113,8 @@ const AppTabs = createBottomTabNavigator(
 
 const AppRoutes = createStackNavigator(
   {
-    AppTabs: { screen: AppTabs }
+    AppTabs: { screen: AppTabs },
+    CreateHabit: { screen: CreateHabit }
   },
   {
     initialRouteName: 'AppTabs',

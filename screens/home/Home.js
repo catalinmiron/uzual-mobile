@@ -8,7 +8,8 @@ import {
   Wrapper,
   Row,
   Block,
-  Scroll
+  Scroll,
+  FabButton
 } from '../../components/styled';
 
 export default class Home extends React.Component {
@@ -16,13 +17,41 @@ export default class Home extends React.Component {
     header: null
   };
 
-  _renderX = () => {
+  _onFabPress = () => {
+    this.props.navigation.navigate('CreateHabit');
+  };
+
+  _renderHabits = () => {
     const { habits } = this.props.data;
+
     return (
       <Wrapper>
         <Heading left large>
           HABITS
         </Heading>
+        {habits.length > 0
+          ? this._renderHabitsList()
+          : this._renderEmptyState()}
+      </Wrapper>
+    );
+  };
+
+  _renderEmptyState = () => {
+    return (
+      <Block>
+        <Body placeholder noMargin>
+          You have no habits :-(. Most of us have habits right? So please add
+          one :)
+        </Body>
+      </Block>
+    );
+  };
+
+  _renderHabitsList = () => {
+    const { habits } = this.props.data;
+
+    return (
+      <React.Fragment>
         {habits.map(habit => {
           return (
             <Block key={habit.id} huge>
@@ -46,7 +75,7 @@ export default class Home extends React.Component {
             </Block>
           );
         })}
-      </Wrapper>
+      </React.Fragment>
     );
   };
 
@@ -67,6 +96,16 @@ export default class Home extends React.Component {
     if (this.props.data.loading && !this.props.data.habits) {
       return <FullLoading />;
     }
-    return <Scroll>{this._renderX()}</Scroll>;
+
+    return (
+      <React.Fragment>
+        <Scroll>{this._renderHabits()}</Scroll>
+        <FabButton onPress={this._onFabPress} big>
+          <Body white noMargin xlarge center>
+            +
+          </Body>
+        </FabButton>
+      </React.Fragment>
+    );
   }
 }

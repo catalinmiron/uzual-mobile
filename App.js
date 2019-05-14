@@ -16,7 +16,7 @@ export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
     hasHydrated: false,
-    theme: 'dark'
+    theme: 'light'
   };
 
   toggleTheme = () => {
