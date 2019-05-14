@@ -125,10 +125,6 @@ export default class CreateHabit extends React.Component {
             </Body>
           )}
         </Spacer>
-
-        <Body placeholder noMargin>
-          {JSON.stringify(this.state, null, 2)}
-        </Body>
         <Button onPress={this._createHabit} primary huge>
           <Body white center noMargin>
             CREATE HABIT
