@@ -51,7 +51,7 @@ const size = {
   medium: 16,
   large: 24,
   xlarge: 32,
-  xxlarge: 48,
+  xxlarge: 42,
   xxxlarge: 52
 };
 
@@ -100,7 +100,8 @@ const layout = {
   smallRadius: 7,
   badgeRadius: 4,
   habitSquareSize: 24,
-  width: 260
+  width: 260,
+  fabButtonSize: 50
 };
 
 export default (theme = 'light') => ({

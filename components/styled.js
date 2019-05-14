@@ -1,4 +1,9 @@
-import { KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
+import {
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  StatusBar
+} from 'react-native';
 import styled from 'styled-components/native';
 import styledMap, { mapToTheme as theme } from 'styled-map';
 import SafeAreaView from 'react-native-safe-area-view';
@@ -56,7 +61,7 @@ export const Scroll = styled.ScrollView`
 `;
 
 export const Body = styled.Text`
-  font-size: ${theme('size')}px;
+  font-size: ${theme('size')};
   color: ${theme('colors')};
   margin-bottom: ${theme('spacing')}
   opacity: ${props => (props.faded ? 0.6 : 1)};
@@ -104,4 +109,16 @@ export const HabitSquare = styled.View`
   justify-content: center
   backgroundColor: ${props =>
     props.done ? props.theme.colors.primary : props.theme.colors.shadow}
+`;
+
+export const FabButton = styled.TouchableOpacity`
+  width: ${props => props.theme.layout.fabButtonSize}
+  height: ${props => props.theme.layout.fabButtonSize}
+  border-radius: ${props => props.theme.layout.fabButtonSize / 2}
+  background-color: ${props => props.theme.colors.primary}
+  position: absolute
+  right: ${theme('spacing')}
+  bottom: ${theme('spacing')}
+  align-items: center;
+  justify-content: center;
 `;
