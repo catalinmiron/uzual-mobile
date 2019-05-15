@@ -13,7 +13,7 @@ import FullLoading from '../components/FullLoading';
 // Auth
 import Login from '../screens/login/Container';
 import Register from '../screens/register/Container';
-import Home from '../screens/home/Container';
+import Habits from '../screens/habits/Container';
 import CreateHabit from '../screens/createHabit/Container';
 import Mood from '../screens/mood/Container';
 import Settings from '../screens/settings/Container';
@@ -41,16 +41,16 @@ const fade = props => {
   };
 };
 
-const HomeStack = createStackNavigator(
+const HabitsStack = createStackNavigator(
   {
-    Home: {
-      screen: Home
+    Habits: {
+      screen: Habits
     }
   },
   {
     headerMode: 'none',
     navigationOptions: {
-      tabBarLabel: 'Home',
+      tabBarLabel: 'Habits',
       tabBarIcon: ({ focused }) => (
         <TabBarIcon
           focused={focused}
@@ -99,14 +99,14 @@ const SettingsStack = createStackNavigator(
 
 const AppTabs = createBottomTabNavigator(
   {
-    HomeTab: { screen: HomeStack },
+    HabitsTab: { screen: HabitsStack },
     MoodTab: { screen: MoodStack },
     SettingsTab: { screen: SettingsStack }
   },
   {
     // initialRouteName: "MyTripsTab",
-    initialRouteName: 'HomeTab',
-    order: ['HomeTab', 'MoodTab', 'SettingsTab'],
+    initialRouteName: 'HabitsTab',
+    order: ['HabitsTab', 'MoodTab', 'SettingsTab'],
     tabBarComponent: ThemedTabBar
   }
 );

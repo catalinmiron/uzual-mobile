@@ -1,16 +1,16 @@
 import { graphql, compose, withApollo } from 'react-apollo';
-import Home from './Home';
+import Habits from './Habits';
 import queries from './queries.gql';
 import { withTheme } from 'styled-components';
 
 export default compose(
   graphql(queries.habits, {
     options: {
-      pollInterval: 5000,
+      pollInterval: 10000,
       fetchPolicy: 'cache-and-network',
       notifyOnNetworkStatusChange: true
     }
   }),
   withApollo,
   withTheme
-)(Home);
+)(Habits);

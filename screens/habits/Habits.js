@@ -1,5 +1,6 @@
 import React from 'react';
-import { AsyncStorage, ScrollView } from 'react-native';
+import { Platform, AsyncStorage, ScrollView } from 'react-native';
+import { Icon } from 'expo';
 import FullLoading from '../../components/FullLoading';
 import {
   Body,
@@ -92,9 +93,12 @@ export default class Home extends React.Component {
       <React.Fragment>
         <Scroll>{this._renderHabits()}</Scroll>
         <FabButton onPress={this._onFabPress} big>
-          <Body white noMargin xlarge center>
-            +
-          </Body>
+          <Icon.Ionicons
+            name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'}
+            size={this.props.theme.size.xlarge}
+            style={{ marginBottom: -3 }}
+            color={this.props.theme.colors.white}
+          />
         </FabButton>
       </React.Fragment>
     );
