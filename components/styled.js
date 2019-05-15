@@ -109,6 +109,7 @@ export const HabitSquare = styled.View`
   justify-content: center
   backgroundColor: ${props =>
     props.done ? props.theme.colors.primary : props.theme.colors.shadow}
+  opacity: ${props => (props.disabled ? 0.3 : 1)}
 `;
 
 export const FabButton = styled.TouchableOpacity`
