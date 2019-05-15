@@ -11,6 +11,7 @@ import {
   Scroll,
   FabButton
 } from '../../components/styled';
+import DayHabits from '../../components/DayHabits';
 
 export default class Home extends React.Component {
   static navigationOptions = {
@@ -61,17 +62,7 @@ export default class Home extends React.Component {
               <Body placeholder tiny>
                 {habit.description}
               </Body>
-              <Row wrap>
-                {habit.habits.map(day => {
-                  return (
-                    <HabitSquare key={day.id} done={day.done}>
-                      <Body stiny white={day.done} center noMargin>
-                        {new Date(day.date).getDate()}
-                      </Body>
-                    </HabitSquare>
-                  );
-                })}
-              </Row>
+              <DayHabits habits={habit.habits} habitId={habit.it} />
             </Block>
           );
         })}
