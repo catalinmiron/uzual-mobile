@@ -112,7 +112,12 @@ export const HabitSquare = styled.View`
   opacity: ${props => (props.disabled ? 0.3 : 1)}
 `;
 
-export const FabButton = styled.TouchableOpacity`
+const Shadow = styled.View`
+  shadow-color: ${props => props.theme.colors.shadow};
+  shadow-offset: 0px 0px;
+  shadow-radius: 4px;
+`;
+export const FabButton = styled(Shadow)`
   width: ${props => props.theme.layout.fabButtonSize}
   height: ${props => props.theme.layout.fabButtonSize}
   border-radius: ${props => props.theme.layout.fabButtonSize / 2}
@@ -122,7 +127,4 @@ export const FabButton = styled.TouchableOpacity`
   bottom: ${theme('spacing')}
   align-items: center;
   justify-content: center;
-  shadow-color: ${props => props.theme.colors.shadow};
-  shadow-offset: 0px 0px;
-  shadow-radius: 4px;
-`;
+`.withComponent(TouchableOpacity);
