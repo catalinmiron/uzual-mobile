@@ -102,7 +102,7 @@ const layout = {
   radius: 10,
   smallRadius: 7,
   badgeRadius: 4,
-  habitSquareSize: 24,
+  habitSquareSize: 22,
   width: 260,
   fabButtonSize: 50
 };
