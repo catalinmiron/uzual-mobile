@@ -19,6 +19,7 @@
     "apollo-link-retry": "^2.2.13",
     "apollo-link-ws": "^1.0.17",
     "apollo-utilities": "^1.2.1",
+    "dayjs": "^1.8.14",
     "expo": "^32.0.0",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
