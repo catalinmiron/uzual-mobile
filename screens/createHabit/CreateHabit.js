@@ -11,6 +11,7 @@ import {
   Input,
   Button
 } from '../../components/styled';
+import { start, end } from '../../utils/dayjs';
 
 export default class CreateHabit extends React.Component {
   // static navigationOptions = {
@@ -63,7 +64,9 @@ export default class CreateHabit extends React.Component {
           id: '',
           title,
           description,
-          starred
+          starred,
+          start,
+          end
         },
         optimisticResponse: {
           __typename: 'Mutation',
