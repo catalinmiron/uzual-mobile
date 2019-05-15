@@ -122,4 +122,7 @@ export const FabButton = styled.TouchableOpacity`
   bottom: ${theme('spacing')}
   align-items: center;
   justify-content: center;
+  shadow-color: ${props => props.theme.colors.shadow};
+  shadow-offset: 0px 0px;
+  shadow-radius: 4px;
 `;

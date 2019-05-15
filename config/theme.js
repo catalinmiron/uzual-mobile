@@ -51,7 +51,7 @@ const size = {
   medium: 16,
   large: 24,
   xlarge: 32,
-  xxlarge: 42,
+  xxlarge: 46,
   xxxlarge: 52
 };
 
