@@ -118,4 +118,13 @@ mutation setDailyHabit {
     done
   }
 }
+
+//For changing the date for the current month + refreshing
+
+this.props.data.stopPolling();
+await this.props.data.refetch({
+  start,
+  end
+});
+this.props.data.startPolling(5000);
 ```
