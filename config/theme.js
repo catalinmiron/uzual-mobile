@@ -1,3 +1,6 @@
+import React from 'react';
+
+export const ThemeContext = React.createContext(null);
 const colors = {
   white: '#FFFFFF',
   bg: '#FAFAFA',
