@@ -1,3 +1,6 @@
+import React from 'react';
+
+export const ThemeContext = React.createContext(null);
 const colors = {
   white: '#FFFFFF',
   bg: '#FAFAFA',
@@ -51,7 +54,7 @@ const size = {
   medium: 16,
   large: 24,
   xlarge: 32,
-  xxlarge: 42,
+  xxlarge: 46,
   xxxlarge: 52
 };
 
@@ -99,7 +102,7 @@ const layout = {
   radius: 10,
   smallRadius: 7,
   badgeRadius: 4,
-  habitSquareSize: 24,
+  habitSquareSize: 22,
   width: 260,
   fabButtonSize: 50
 };

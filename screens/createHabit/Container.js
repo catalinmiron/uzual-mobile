@@ -1,7 +1,7 @@
 import { graphql, compose, withApollo } from 'react-apollo';
 import CreateHabit from './CreateHabit';
 import mutations from './mutations.gql';
-import queries from '../home/queries.gql';
+import queries from '../habits/queries.gql';
 import { withTheme } from 'styled-components';
 
 export default compose(

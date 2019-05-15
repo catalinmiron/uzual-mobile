@@ -6,6 +6,8 @@ const createHabit = gql`
     $title: String!
     $description: String!
     $starred: Boolean
+    $start: DateTime
+    $end: DateTime
   ) {
     createHabit(
       id: $id
@@ -17,7 +19,7 @@ const createHabit = gql`
       title
       description
       starred
-      habits(orderBy: date_ASC) {
+      habits(orderBy: date_ASC, where: { date_gte: $start, date_lte: $end }) {
         id
         date
         done

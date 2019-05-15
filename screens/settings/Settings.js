@@ -13,7 +13,7 @@ import {
   Spacer
 } from '../../components/styled';
 
-import { ThemeContext } from '../../App';
+import { ThemeContext } from '../../config/theme';
 
 const ProBadge = ({ isPro }) => (
   <Badge primary={isPro} shadow={!isPro}>

@@ -7,9 +7,7 @@ import AppNavigator from './navigation/AppNavigator';
 import setupApolloClient from './config/setup';
 import Colors from './constants/Colors';
 import { Bg } from './components/styled';
-import theme from './config/theme';
-
-export const ThemeContext = React.createContext(null);
+import theme, { ThemeContext } from './config/theme';
 
 export default class App extends React.Component {
   apolloClient = null;
