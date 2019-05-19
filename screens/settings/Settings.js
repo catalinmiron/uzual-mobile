@@ -23,7 +23,7 @@ const ProBadge = ({ isPro }) => (
   </Badge>
 );
 
-export default class Settings extends React.Component {
+export default class Settings extends React.PureComponent {
   static navigationOptions = {
     header: null
   };

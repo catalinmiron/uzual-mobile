@@ -2,7 +2,8 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  StatusBar
+  StatusBar,
+  FlatList
 } from 'react-native';
 import styled from 'styled-components/native';
 import styledMap, { mapToTheme as theme } from 'styled-map';
@@ -59,6 +60,12 @@ export const Scroll = styled.ScrollView`
   flex: 1
   background-color: ${props => props.theme.colors.bg};
 `;
+
+export const Flat = styled(Scroll)`
+  flex: 1
+  background-color: ${props => props.theme.colors.bg};
+  padding-horizontal: ${theme('spacing')};
+`.withComponent(FlatList);
 
 export const Body = styled.Text`
   font-size: ${theme('size')};

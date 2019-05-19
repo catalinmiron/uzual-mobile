@@ -1,10 +1,23 @@
 import React from 'react';
-import FullLoading from './FullLoading';
-import { Body, Heading, HabitSquare, Row, Block } from './styled';
-import { start, current, end, days } from '../utils/dayjs';
-import dayjs from 'dayjs';
+import { Body, HabitSquare, Row } from './styled';
+import { days } from '../utils/dayjs';
+import DayHabitSquare from './DayHabitSquare';
 
-export default class DayHabits extends React.Component {
+export default class DayHabits extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      dayHabits: this._getHabitList()
+    };
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      dayHabits: this._getHabitList()
+    });
+  }
+
   _getHabitList = () => {
     const { habitId, habits } = this.props;
 
@@ -25,18 +38,11 @@ export default class DayHabits extends React.Component {
   };
 
   render() {
-    const dayHabits = this._getHabitList();
     return (
       <Row wrap>
-        {dayHabits.map(day => {
-          return (
-            <HabitSquare key={day.id} done={day.done} disabled={day.disabled}>
-              <Body stiny white={day.done} center noMargin>
-                {new Date(day.date).getDate()}
-              </Body>
-            </HabitSquare>
-          );
-        })}
+        {this.state.dayHabits.map(day => (
+          <DayHabitSquare day={day} key={day.id} />
+        ))}
       </Row>
     );
   }

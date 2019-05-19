@@ -1,41 +1,24 @@
 import React from 'react';
-import { Platform, AsyncStorage, ScrollView } from 'react-native';
+import { Platform, AsyncStorage } from 'react-native';
 import { Icon } from 'expo';
 import FullLoading from '../../components/FullLoading';
 import {
   Body,
   Heading,
-  HabitSquare,
   Wrapper,
-  Row,
   Block,
-  Scroll,
+  Flat,
   FabButton
 } from '../../components/styled';
-import DayHabits from '../../components/DayHabits';
+import Habit from '../../components/Habit';
 
-export default class Home extends React.Component {
+export default class Home extends React.PureComponent {
   static navigationOptions = {
     header: null
   };
 
   _onFabPress = () => {
     this.props.navigation.navigate('CreateHabit');
-  };
-
-  _renderHabits = () => {
-    const { habits } = this.props.data;
-
-    return (
-      <Wrapper>
-        <Heading left large>
-          HABITS
-        </Heading>
-        {habits.length > 0
-          ? this._renderHabitsList()
-          : this._renderEmptyState()}
-      </Wrapper>
-    );
   };
 
   _renderEmptyState = () => {
@@ -46,28 +29,6 @@ export default class Home extends React.Component {
           one :)
         </Body>
       </Block>
-    );
-  };
-
-  _renderHabitsList = () => {
-    const { habits } = this.props.data;
-
-    return (
-      <React.Fragment>
-        {habits.map(habit => {
-          return (
-            <Block key={habit.id} huge>
-              <Body noMargin medium>
-                {habit.title} {habit.starred && '🌟'}
-              </Body>
-              <Body placeholder tiny>
-                {habit.description}
-              </Body>
-              <DayHabits habits={habit.habits} habitId={habit.it} />
-            </Block>
-          );
-        })}
-      </React.Fragment>
     );
   };
 
@@ -85,13 +46,18 @@ export default class Home extends React.Component {
   };
 
   render() {
-    if (this.props.data.loading && !this.props.data.habits) {
+    const { loading, habits } = this.props.data;
+    if (loading && !habits) {
       return <FullLoading />;
     }
 
     return (
       <React.Fragment>
-        <Scroll>{this._renderHabits()}</Scroll>
+        <Flat
+          data={habits}
+          renderItem={({ item }) => <Habit habit={item} />}
+          keyExtractor={item => item.id}
+        />
         <FabButton onPress={this._onFabPress} big>
           <Icon.Ionicons
             name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'}
