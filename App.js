@@ -9,7 +9,14 @@ import Colors from './constants/Colors';
 import { Bg } from './components/styled';
 import theme, { ThemeContext } from './config/theme';
 
-export default class App extends React.Component {
+const _makeTheme = (type = 'light') => ({
+  color: Colors,
+  ...theme(type)
+});
+const dark = _makeTheme('dark');
+const light = _makeTheme('light');
+
+export default class App extends React.PureComponent {
   apolloClient = null;
   state = {
     isLoadingComplete: false,
@@ -22,7 +29,7 @@ export default class App extends React.Component {
       ({ theme }) => ({
         theme: theme === 'light' ? 'dark' : 'light'
       }),
-      this._changeStatusBarStyle
+      () => setTimeout(this._changeStatusBarStyle, 250) //YOLO: hack
     );
   };
 
@@ -35,13 +42,6 @@ export default class App extends React.Component {
   componentDidMount() {
     return Platform.OS === 'ios' && this._changeStatusBarStyle();
   }
-
-  _makeTheme = () => {
-    return {
-      color: Colors,
-      ...theme(this.state.theme)
-    };
-  };
 
   render() {
     const { isLoadingComplete, hasHydrated } = this.state;
@@ -60,7 +60,7 @@ export default class App extends React.Component {
           <ThemeContext.Provider
             value={{ theme: this.state.theme, toggleTheme: this.toggleTheme }}
           >
-            <ThemeProvider theme={this._makeTheme()}>
+            <ThemeProvider theme={this.state.theme === 'light' ? light : dark}>
               <Bg forceInset={{ bottom: 'never' }}>
                 <AppNavigator />
               </Bg>
