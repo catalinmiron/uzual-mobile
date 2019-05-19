@@ -9,7 +9,6 @@ export default compose(
     options: {
       pollInterval: 10000,
       fetchPolicy: 'cache-and-network',
-      notifyOnNetworkStatusChange: true,
       variables: {
         start,
         end
