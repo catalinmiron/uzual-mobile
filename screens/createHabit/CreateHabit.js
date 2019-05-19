@@ -12,6 +12,7 @@ import {
   Button
 } from '../../components/styled';
 import { start, end } from '../../utils/dayjs';
+import queries from '../habits/queries.gql';
 
 export default class CreateHabit extends React.Component {
   // static navigationOptions = {
@@ -59,7 +60,7 @@ export default class CreateHabit extends React.Component {
     }
 
     try {
-      const { data } = await this.props.createHabit({
+      await this.props.createHabit({
         variables: {
           id: '',
           title,
@@ -72,16 +73,34 @@ export default class CreateHabit extends React.Component {
           __typename: 'Mutation',
           createHabit: {
             __typename: 'Habit',
-            id: Math.random().toString(), // uuid
+            id: Math.random().toString(), // TODO: Use uuid
             title,
             description,
             starred,
             habits: []
           }
+        },
+        update: (proxy, { data }) => {
+          const { createHabit } = data;
+          try {
+            const data = proxy.readQuery({
+              query: queries.habits,
+              variables: { start, end }
+            });
+            data.habits.push(createHabit);
+            proxy.writeQuery({
+              query: queries.habits,
+              variables: { start, end },
+              data
+            });
+            // Update the cache and return. This is because maybe the
+            // user is offline and so the promise will never be resolved.
+            this.props.navigation.goBack();
+          } catch (err) {
+            console.error(err);
+          }
         }
       });
-
-      this.props.navigation.goBack();
     } catch (err) {
       this.setState({
         error:
