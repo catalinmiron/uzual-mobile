@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, AsyncStorage, ScrollView } from 'react-native';
+import { Switch } from 'react-native';
 import FullLoading from '../../components/FullLoading';
 import {
   Body,
