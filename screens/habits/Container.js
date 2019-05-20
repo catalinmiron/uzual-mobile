@@ -1,6 +1,7 @@
 import { graphql, compose, withApollo } from 'react-apollo';
 import Habits from './Habits';
 import queries from './queries.gql';
+import mutations from './mutations.gql';
 import { withTheme } from 'styled-components';
 import { start, end } from '../../utils/dayjs';
 
@@ -14,6 +15,9 @@ export default compose(
         end
       }
     }
+  }),
+  graphql(mutations.setDailyHabit, {
+    name: 'setDailyHabit'
   }),
   withApollo,
   withTheme
