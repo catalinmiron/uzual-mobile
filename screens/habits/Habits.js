@@ -13,6 +13,7 @@ import {
 import Habit from '../../components/Habit';
 import queries from './queries.gql';
 import { start, end, current } from '../../utils/dayjs';
+import { POLL_INTERVAL } from '../../constants/vars';
 import { v4 as uuid } from 'uuid';
 
 export default class Home extends React.Component {
@@ -85,7 +86,7 @@ export default class Home extends React.Component {
             variables: { start, end },
             data
           });
-          this.props.data.startPolling(5000);
+          this.props.data.startPolling(POLL_INTERVAL);
         } catch (err) {
           console.error(err);
         }
