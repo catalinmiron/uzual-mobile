@@ -32,7 +32,8 @@
     "recompose": "^0.30.0",
     "styled-components": "^4.2.0",
     "styled-map": "^3.2.0-rc.1",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.16",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",

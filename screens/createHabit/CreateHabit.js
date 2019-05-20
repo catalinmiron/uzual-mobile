@@ -13,6 +13,7 @@ import {
 } from '../../components/styled';
 import { start, end } from '../../utils/dayjs';
 import queries from '../habits/queries.gql';
+import { v4 as uuid } from 'uuid';
 
 export default class CreateHabit extends React.Component {
   // static navigationOptions = {
@@ -73,7 +74,7 @@ export default class CreateHabit extends React.Component {
           __typename: 'Mutation',
           createHabit: {
             __typename: 'Habit',
-            id: Math.random().toString(), // TODO: Use uuid
+            id: uuid(),
             title,
             description,
             starred,

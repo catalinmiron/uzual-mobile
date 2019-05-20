@@ -3,7 +3,7 @@ import { Body, HabitSquare, Row } from './styled';
 import { days } from '../utils/dayjs';
 import DayHabitSquare from './DayHabitSquare';
 
-export default class DayHabits extends React.PureComponent {
+export default class DayHabits extends React.Component {
   constructor(props) {
     super(props);
 
