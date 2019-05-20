@@ -11,8 +11,11 @@ import {
   FabButton
 } from '../../components/styled';
 import Habit from '../../components/Habit';
+import queries from './queries.gql';
+import { start, end, current } from '../../utils/dayjs';
+import { v4 as uuid } from 'uuid';
 
-export default class Home extends React.PureComponent {
+export default class Home extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -45,6 +48,51 @@ export default class Home extends React.PureComponent {
     });
   };
 
+  _onSetDailyHabit = async habit => {
+    const date = current.format('YYYY-MM-DD');
+    const dayHabit = habit.habits.find(h => h.date.startsWith(date));
+    await this.props.data.stopPolling();
+    const { id: habitId } = habit;
+    this.props.setDailyHabit({
+      variables: {
+        habitId,
+        date
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        setDailyHabit: {
+          __typename: 'DayHabit',
+          id: uuid(),
+          date,
+          done: dayHabit ? !dayHabit.done : true
+        }
+      },
+      update: (proxy, { data: { setDailyHabit } }) => {
+        try {
+          const data = proxy.readQuery({
+            query: queries.habits,
+            variables: { start, end }
+          });
+          const currentHabit = data.habits.find(habit => habit.id === habitId);
+
+          if (dayHabit) {
+            currentHabit.habits.splice(-1, 1, setDailyHabit);
+          } else {
+            currentHabit.habits.push(setDailyHabit);
+          }
+          proxy.writeQuery({
+            query: queries.habits,
+            variables: { start, end },
+            data
+          });
+          this.props.data.startPolling(5000);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    });
+  };
+
   render() {
     const { loading, habits } = this.props.data;
     if (loading && !habits) {
@@ -55,7 +103,9 @@ export default class Home extends React.PureComponent {
       <React.Fragment>
         <Flat
           data={habits}
-          renderItem={({ item }) => <Habit habit={item} />}
+          renderItem={({ item }) => (
+            <Habit habit={item} onSetDailyHabit={this._onSetDailyHabit} />
+          )}
           keyExtractor={item => item.id}
         />
         <FabButton onPress={this._onFabPress} big>
