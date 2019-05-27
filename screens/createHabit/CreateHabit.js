@@ -19,13 +19,24 @@ export default class CreateHabit extends React.Component {
   // static navigationOptions = {
   //   header: null
   // };
+  constructor(props) {
+    super(props);
 
-  state = {
-    title: '',
-    description: '',
-    starred: false,
-    error: null
-  };
+    const { navigation } = this.props;
+    const habit = navigation.getParam('habit', {
+      title: '',
+      description: '',
+      starred: false,
+      id: null,
+      habits: []
+    });
+
+    this.state = {
+      ...habit,
+      error: null,
+      type: habit.id ? 'EDIT' : 'CREATE'
+    };
+  }
 
   _change = (type, value) => {
     this.setState({
@@ -33,6 +44,7 @@ export default class CreateHabit extends React.Component {
       error: null
     });
   };
+
   _getErrorMessage = () => {
     const { title, description } = this.state;
     if (!title && !description) {
@@ -46,13 +58,10 @@ export default class CreateHabit extends React.Component {
     }
   };
 
-  _goToRegister = () => {
-    this.props.navigation.navigate('Register');
-  };
-
   _createHabit = async () => {
-    console.log('create habit');
-    const { title, description, starred } = this.state;
+    const { title, description, starred, id, habits } = this.state;
+    const isEditMode = this._isEditMode();
+    console.log(isEditMode ? 'edit' : 'create', ' habit');
     if (!title || !description) {
       const error = this._getErrorMessage();
       return this.setState({
@@ -63,7 +72,7 @@ export default class CreateHabit extends React.Component {
     try {
       await this.props.createHabit({
         variables: {
-          id: '',
+          id: isEditMode ? id : '',
           title,
           description,
           starred,
@@ -74,21 +83,28 @@ export default class CreateHabit extends React.Component {
           __typename: 'Mutation',
           createHabit: {
             __typename: 'Habit',
-            id: uuid(),
+            id: isEditMode ? id : uuid(),
             title,
             description,
             starred,
-            habits: []
+            habits
           }
         },
-        update: (proxy, { data }) => {
-          const { createHabit } = data;
+        update: (proxy, { data: { createHabit } }) => {
           try {
             const data = proxy.readQuery({
               query: queries.habits,
               variables: { start, end }
             });
-            data.habits.push(createHabit);
+
+            if (isEditMode) {
+              const habitIndex = data.habits.findIndex(
+                habit => habit.id === id
+              );
+              data.habits.splice(habitIndex, 1, createHabit);
+            } else {
+              data.habits.push(createHabit);
+            }
             proxy.writeQuery({
               query: queries.habits,
               variables: { start, end },
@@ -112,11 +128,15 @@ export default class CreateHabit extends React.Component {
     }
   };
 
+  _isEditMode = () => this.state.type === 'EDIT';
+
   _renderCreateHabitForm = () => {
+    const isEditMode = this._isEditMode();
+    const heading = `${isEditMode ? 'EDIT' : 'CREATE'} HABIT`;
     return (
       <Wrapper>
         <Heading left large>
-          CREATE HABIT
+          {heading}
         </Heading>
         <Body left placeholder tiny>
           Title
@@ -150,7 +170,7 @@ export default class CreateHabit extends React.Component {
         </Spacer>
         <Button onPress={this._createHabit} primary huge>
           <Body white center noMargin>
-            CREATE HABIT
+            {heading}
           </Body>
         </Button>
       </Wrapper>
