@@ -9,6 +9,7 @@ export default class DoubleTap extends React.Component {
       this.props.onDoubleTap();
     } else {
       this.lastTap = now;
+      this.props.onPress();
     }
   };
   render() {
