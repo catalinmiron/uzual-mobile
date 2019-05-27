@@ -60,7 +60,8 @@ const size = {
 
 const height = {
   input: 40,
-  tabBar: 60
+  tabBar: 60,
+  header: 60
 };
 
 const button = {
