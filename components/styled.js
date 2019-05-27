@@ -135,3 +135,11 @@ export const FabButton = styled(Shadow)`
   align-items: center;
   justify-content: center;
 `.withComponent(TouchableOpacity);
+
+export const Header = styled.View`
+  height: ${props => props.theme.height.header};
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-horizontal: ${theme('spacing')};
+`;

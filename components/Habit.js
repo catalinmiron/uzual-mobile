@@ -4,8 +4,12 @@ import { Body, Block } from './styled';
 import DayHabits from './DayHabits';
 import DoubleTap from './DoubleTap';
 
-export default ({ habit, onSetDailyHabit }) => (
-  <DoubleTap delay={300} onDoubleTap={() => onSetDailyHabit(habit)}>
+export default ({ habit, onSetDailyHabit, onPress }) => (
+  <DoubleTap
+    delay={300}
+    onDoubleTap={() => onSetDailyHabit(habit)}
+    onPress={() => onPress(habit)}
+  >
     <Block huge>
       <Body noMargin medium>
         {habit.title} {habit.starred && '🌟'}

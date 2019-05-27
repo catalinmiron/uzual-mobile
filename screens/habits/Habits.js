@@ -94,6 +94,10 @@ export default class Home extends React.Component {
     });
   };
 
+  _onHabitPress = habit => {
+    this.props.navigation.navigate('CreateHabit', { habit });
+  };
+
   render() {
     const { loading, habits } = this.props.data;
     if (loading && !habits) {
@@ -105,7 +109,11 @@ export default class Home extends React.Component {
         <Flat
           data={habits}
           renderItem={({ item }) => (
-            <Habit habit={item} onSetDailyHabit={this._onSetDailyHabit} />
+            <Habit
+              habit={item}
+              onSetDailyHabit={this._onSetDailyHabit}
+              onPress={this._onHabitPress}
+            />
           )}
           keyExtractor={item => item.id}
         />
