@@ -11,6 +11,7 @@ import {
   Input,
   Button
 } from '../../components/styled';
+import NavHeader from '../../components/NavHeader';
 import { start, end } from '../../utils/dayjs';
 import queries from '../habits/queries.gql';
 import { v4 as uuid } from 'uuid';
@@ -58,7 +59,7 @@ export default class CreateHabit extends React.Component {
     }
   };
 
-  _createHabit = async () => {
+  _createHabit = () => {
     const { title, description, starred, id, habits } = this.state;
     const isEditMode = this._isEditMode();
     console.log(isEditMode ? 'edit' : 'create', ' habit');
@@ -70,7 +71,7 @@ export default class CreateHabit extends React.Component {
     }
 
     try {
-      await this.props.createHabit({
+      this.props.createHabit({
         variables: {
           id: isEditMode ? id : '',
           title,
@@ -112,7 +113,7 @@ export default class CreateHabit extends React.Component {
             });
             // Update the cache and return. This is because maybe the
             // user is offline and so the promise will never be resolved.
-            this.props.navigation.goBack();
+            this._goBack();
           } catch (err) {
             console.error(err);
           }
@@ -129,6 +130,8 @@ export default class CreateHabit extends React.Component {
   };
 
   _isEditMode = () => this.state.type === 'EDIT';
+
+  _goBack = () => this.props.navigation.goBack();
 
   _renderCreateHabitForm = () => {
     const isEditMode = this._isEditMode();
@@ -181,6 +184,11 @@ export default class CreateHabit extends React.Component {
     if (this.props.createHabit.loading) {
       return <FullLoading />;
     }
-    return <Scroll>{this._renderCreateHabitForm()}</Scroll>;
+    return (
+      <Scroll>
+        <NavHeader onBackPress={this._goBack} />
+        {this._renderCreateHabitForm()}
+      </Scroll>
+    );
   }
 }
