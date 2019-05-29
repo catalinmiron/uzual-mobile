@@ -18,7 +18,7 @@ export default class Mood extends React.Component {
         {/* <Body>
           From: {start.format(TIME_FORMAT)} - To:{current.format(TIME_FORMAT)}
         </Body> */}
-        <MoodGraph moods={moods} />
+        {moods && <MoodGraph moods={moods} />}
       </Wrapper>
     );
   };
