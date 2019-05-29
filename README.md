@@ -9,7 +9,7 @@ Feed your brains with habits for a better mood
 <img src="https://user-images.githubusercontent.com/2805320/57558625-b4542e00-737e-11e9-9cbf-afe2ac9fab7c.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57811871-ac73ff80-776b-11e9-85e6-6c5e28883ea1.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57730883-baf1e680-7699-11e9-8d49-28cc86032933.png" width="40%" />
-<img src="https://user-images.githubusercontent.com/2805320/56971311-497a4a00-6b69-11e9-9cb6-45100adb61c6.PNG" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/58590037-81a5a300-8263-11e9-9b91-1bd312efdb39.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/56971310-497a4a00-6b69-11e9-8568-5e6a33cfc8db.PNG" width="40%" />
 </p>
 
