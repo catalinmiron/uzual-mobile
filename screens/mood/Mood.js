@@ -1,7 +1,8 @@
 import React from 'react';
 import FullLoading from '../../components/FullLoading';
 import { Body, Heading, Wrapper, Scroll } from '../../components/styled';
-
+import MoodGraph from '../../components/MoodGraph';
+import { start, end, current, TIME_FORMAT } from '../../utils/dayjs';
 export default class Mood extends React.Component {
   static navigationOptions = {
     header: null
@@ -14,16 +15,10 @@ export default class Mood extends React.Component {
         <Heading left large>
           MOODS
         </Heading>
-        <Body>01/03/2019 - 30/03/2019</Body>
-        <Wrapper left>
-          {moods.map(mood => {
-            return (
-              <Body key={mood.id}>
-                {new Date(mood.date).toLocaleDateString()} - {mood.type}
-              </Body>
-            );
-          })}
-        </Wrapper>
+        {/* <Body>
+          From: {start.format(TIME_FORMAT)} - To:{current.format(TIME_FORMAT)}
+        </Body> */}
+        <MoodGraph moods={moods} />
       </Wrapper>
     );
   };

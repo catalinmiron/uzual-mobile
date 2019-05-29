@@ -1,11 +1,8 @@
 import gql from 'graphql-tag';
 
 const moods = gql`
-  query moods {
-    moods(
-      where: { date_gte: "2019-03-01", date_lte: "2019-03-30" }
-      orderBy: date_ASC
-    ) {
+  query moods($start: DateTime!, $end: DateTime!) {
+    moods(where: { date_gte: $start, date_lte: $end }, orderBy: date_ASC) {
       id
       type
       date
