@@ -12,7 +12,7 @@ import {
 } from '../../components/styled';
 import Habit from '../../components/Habit';
 import queries from './queries.gql';
-import { start, end, current } from '../../utils/dayjs';
+import { start, end, current, TIME_FORMAT } from '../../utils/dayjs';
 import { POLL_INTERVAL } from '../../constants/vars';
 import { v4 as uuid } from 'uuid';
 
@@ -50,7 +50,7 @@ export default class Home extends React.Component {
   };
 
   _onSetDailyHabit = async habit => {
-    const date = current.format('YYYY-MM-DD');
+    const date = current.format(TIME_FORMAT);
     const dayHabit = habit.habits.find(h => h.date.startsWith(date));
     await this.props.data.stopPolling();
     const { id: habitId } = habit;
