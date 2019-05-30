@@ -109,7 +109,8 @@ const layout = {
   badgeRadius: 4,
   habitSquareSize: 22,
   width: 260,
-  fabButtonSize: 50
+  fabButtonSize: 50,
+  moodGraphStrokeDashArray: '13, 5'
 };
 
 export default (theme = 'light') => ({
