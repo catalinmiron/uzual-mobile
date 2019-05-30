@@ -29,8 +29,6 @@ import {
   faGrinHearts
 } from '@fortawesome/free-solid-svg-icons';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
-
-const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 //dizzy, frown, frown-open, meh,smile, laught, grid-hearts
 const icns = [
   'Dizzy',
@@ -60,7 +58,8 @@ const createMoodData = (data = realData) =>
       x: item ? icns.indexOf(item.type) : 0,
       y: i + 1,
       mood: item ? icons[item.type] : icons['Dizzy'],
-      time: item ? dayjs(item.date) : null
+      time: item ? dayjs(item.date) : null,
+      currentDay: dayjs(day)
     };
   });
 
@@ -150,7 +149,7 @@ export default ({ moods }) => {
         ];
       })}
       {moodData.map((mood, index) => {
-        const { iconName, time, x, y } = mood;
+        const { iconName, time, x, y, currentDay } = mood;
         return (
           <G key={time || index}>
             <Text
@@ -162,7 +161,7 @@ export default ({ moods }) => {
               fill='#00000040'
               fontWeight='bolder'
             >
-              {`${DAYS[index % 7]} ${index + 1}`}
+              {currentDay.format('ddd DD')}
             </Text>
             {time && (
               <>
