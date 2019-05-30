@@ -4,24 +4,28 @@ export const ThemeContext = React.createContext(null);
 const colors = {
   white: '#FFFFFF',
   bg: '#FAFAFA',
-  primary: 'turquoise',
-  default: '#333',
+  primary: '#40E0D0',
+  default: '#333333',
   placeholder: '#9B9B9B',
-  shadow: '#ddd',
+  shadow: '#dddddd',
   subheading: '#6D6D6D',
   error: 'rgba(242, 49, 76, 1)',
   loadingBg: 'rgba(255, 255, 255, 0.9)',
   tabBar: 'white',
-  noBg: 'transparent'
+  noBg: 'transparent',
+  moodGraphColor: '#333333',
+  moodGraphColorNegative: '#f2314c',
+  moodGraphColorPositive: '#17ab26'
 };
 
 const colorsDark = {
   ...colors,
-  bg: '#222',
+  bg: '#222222',
   default: '#d3d3d3',
-  tabBar: '#333',
+  tabBar: '#333333',
   shadow: 'rgba(255, 255, 255, 0.25)',
-  loadingBg: 'rgba(0, 0, 0, 0.9)'
+  loadingBg: 'rgba(0, 0, 0, 0.9)',
+  moodGraphColor: '#d3d3d3'
 };
 
 const spacing = {
