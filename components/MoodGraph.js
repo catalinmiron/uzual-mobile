@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
+import { withTheme } from 'styled-components';
 import * as d3Shape from 'd3-shape';
 import * as d3Scale from 'd3-scale';
 import dayjs from 'dayjs';
-import { Body } from './styled';
 import { Svg } from 'expo';
 const {
   Defs,
@@ -29,8 +29,6 @@ import {
   faGrinHearts
 } from '@fortawesome/free-solid-svg-icons';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
-
-const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 //dizzy, frown, frown-open, meh,smile, laught, grid-hearts
 const icns = [
   'Dizzy',
@@ -60,26 +58,29 @@ const createMoodData = (data = realData) =>
       x: item ? icns.indexOf(item.type) : 0,
       y: i + 1,
       mood: item ? icons[item.type] : icons['Dizzy'],
-      time: item ? dayjs(item.date) : null
+      time: item ? dayjs(item.date) : null,
+      currentDay: dayjs(day)
     };
   });
 
-const daySpacer = 40;
+const daySpacer = 50;
 const height = screenHeight * 0.8;
 const ITEMS_PER_ROW = icns.length;
-const cellSize = height / daysInMonth;
-const width = ITEMS_PER_ROW * cellSize + daySpacer;
-const xRange = icns.length * cellSize + cellSize / 2;
+// const cellSize = height / daysInMonth;
+const width = screenWidth * 0.8 + daySpacer;
+const cellSizeWidth = (width - daySpacer) / ITEMS_PER_ROW;
+const cellSizeHeight = height / daysInMonth;
+const xRange = icns.length * cellSizeWidth + cellSizeWidth / 2;
 
 const xScale = d3Scale
   .scaleLinear()
   .domain([0, icns.length])
-  .range([cellSize / 2, xRange]);
+  .range([cellSizeWidth / 2, xRange]);
 
 const yScale = d3Scale
   .scaleTime()
   .domain([start, end])
-  .range([cellSize * 1.4, height + cellSize * 1.4]);
+  .range([cellSizeHeight * 1.4, height + cellSizeHeight * 1.4]);
 
 var line = d3Shape
   .line()
@@ -94,7 +95,7 @@ var line = d3Shape
     // return i * cellSize;
   }); // set the y values for the line generator
 
-export default ({ moods }) => {
+export default withTheme(({ moods, theme }) => {
   const moodData = createMoodData(moods);
   // TODO: Add a prettier UI!
   if (!moodData.length === 0) {
@@ -105,18 +106,18 @@ export default ({ moods }) => {
     <Svg
       height={height}
       width={width}
-      viewBox={`-${daySpacer} 0 ${width} ${height + cellSize}`}
+      viewBox={`-${daySpacer} 0 ${width} ${height + cellSizeHeight}`}
     >
       <Defs>
         <LinearGradient
           id='moodGradient'
           x1={`-${daySpacer}`}
           y1='0'
-          x2={`${width - daySpacer}`}
+          x2={`${width - daySpacer - cellSizeWidth}`}
           y2='0'
         >
-          <Stop offset='0%' stopColor='red' />
-          <Stop offset='100%' stopColor='green' />
+          <Stop offset='0%' stopColor={theme.colors.moodGraphColorNegative} />
+          <Stop offset='100%' stopColor={theme.colors.moodGraphColorPositive} />
         </LinearGradient>
       </Defs>
       {icns.map((n, index) => {
@@ -131,9 +132,9 @@ export default ({ moods }) => {
             <Path
               d={path}
               fill='none'
-              stroke='#333'
+              stroke={`${theme.colors.moodGraphColor}dd`}
               strokeWidth='24'
-              fill='#00000010'
+              fill={`${theme.colors.moodGraphColor}10`}
             />
           </Symbol>,
           // 0.35 => cellSize / 2 (0.5) - 0.7/2
@@ -142,53 +143,52 @@ export default ({ moods }) => {
           // (cellSize * .7) / 2 => cellSize * .3 or 30% :p
           <Use
             key={`heading-${icon.iconName}`}
-            x={xScale(index) - cellSize * 0.35}
+            x={xScale(index) - cellSizeWidth * 0.45}
             href={`#symbol_${icon.iconName}`}
-            width={cellSize * 0.7}
-            height={cellSize * 0.7}
+            width={cellSizeWidth * 0.9}
+            height={cellSizeHeight * 0.9}
           />
         ];
       })}
       {moodData.map((mood, index) => {
-        const { iconName, time, x, y } = mood;
+        const { iconName, time, x, y, currentDay } = mood;
         return (
           <G key={time || index}>
             <Text
               fontFamily='Menlo'
               textAnchor='end'
-              x={-cellSize / 2}
-              y={xScale(y) + 2}
-              fontSize={cellSize / 2.5}
-              fill='#00000040'
-              fontWeight='bolder'
+              x={-10}
+              y={yScale(currentDay) + 4}
+              fontSize={cellSizeHeight / 2.5}
+              fill={`${theme.colors.moodGraphColor}80`}
             >
-              {`${DAYS[index % 7]} ${index + 1}`}
+              {dayjs(currentDay).format('ddd DD')}
             </Text>
             {time && (
               <>
                 <Circle
                   cx={xScale(x)}
-                  cy={xScale(y)}
-                  r={cellSize / 7}
-                  fill='#333333'
+                  cy={yScale(currentDay)}
+                  r={cellSizeHeight / 7}
+                  fill={theme.colors.moodGraphColor}
                 />
                 <Circle
                   cx={xScale(x)}
-                  cy={xScale(y)}
-                  r={cellSize / 3}
-                  fill='#33333310'
+                  cy={yScale(currentDay)}
+                  r={cellSizeHeight / 3}
+                  fill={`${theme.colors.moodGraphColor}10`}
                 />
               </>
             )}
             <Line
               x1={0}
-              y1={xScale(index + 1)}
+              y1={yScale(currentDay)}
               x2={width}
-              y2={xScale(index + 1)}
+              y2={yScale(currentDay)}
               key={iconName}
-              stroke='#55555510'
+              stroke={`${theme.colors.moodGraphColor}15`}
               strokeWidth='1'
-              strokeDasharray={'5, 5'}
+              strokeDasharray={theme.layout.moodGraphStrokeDashArray}
             />
           </G>
         );
@@ -204,15 +204,15 @@ export default ({ moods }) => {
           <Line
             key={`${icon.iconName}-${index}`}
             x1={xScale(index)}
-            y1={cellSize}
+            y1={cellSizeHeight}
             x2={xScale(index)}
-            y2={height}
-            stroke='#55555510'
+            y2={height + cellSizeHeight * 1.5}
+            stroke={`${theme.colors.moodGraphColor}15`}
             strokeWidth='1'
-            strokeDasharray={'5, 5'}
+            strokeDasharray={theme.layout.moodGraphStrokeDashArray}
           />
         );
       })}
     </Svg>
   );
-};
+});

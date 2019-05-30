@@ -8,8 +8,9 @@ Feed your brains with habits for a better mood
 <img src="https://user-images.githubusercontent.com/2805320/57558626-b4542e00-737e-11e9-8bb7-7a5eeea5b22a.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57558625-b4542e00-737e-11e9-9cbf-afe2ac9fab7c.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57811871-ac73ff80-776b-11e9-85e6-6c5e28883ea1.png" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/58661782-060e2980-8329-11e9-8dc9-dc049ef39f55.png" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/58659807-30a9b380-8324-11e9-96e5-fe762b85e625.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57730883-baf1e680-7699-11e9-8d49-28cc86032933.png" width="40%" />
-<img src="https://user-images.githubusercontent.com/2805320/58590037-81a5a300-8263-11e9-9b91-1bd312efdb39.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/56971310-497a4a00-6b69-11e9-8568-5e6a33cfc8db.PNG" width="40%" />
 </p>
 
@@ -19,8 +20,9 @@ Feed your brains with habits for a better mood
 <img src="https://user-images.githubusercontent.com/2805320/57559606-0ac36b80-7383-11e9-8a25-3cebefb1821a.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57559607-0ac36b80-7383-11e9-91c5-c9759795dee9.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57811872-ac73ff80-776b-11e9-942d-b3b64a2be8f9.png" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/58661781-060e2980-8329-11e9-8195-6f0b7d5fe9dc.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57730880-baf1e680-7699-11e9-84c8-622243a5e6c4.png" width="40%" />
-<img src="https://user-images.githubusercontent.com/2805320/57559611-0b5c0200-7383-11e9-9b9d-38e8d3e1afb7.png" width="40%" />
+<img src="https://user-images.githubusercontent.com/2805320/58659809-30a9b380-8324-11e9-9d47-275be83f8225.png" width="40%" />
 <img src="https://user-images.githubusercontent.com/2805320/57559612-0b5c0200-7383-11e9-8873-3e5c9bef13bf.png" width="40%" />
 </p>
 
