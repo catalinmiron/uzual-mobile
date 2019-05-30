@@ -2,12 +2,11 @@ import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { Body, Block } from './styled';
 import DayHabits from './DayHabits';
-import DoubleTap from './DoubleTap';
 
 export default ({ habit, onSetDailyHabit, onPress }) => (
-  <DoubleTap
+  <TouchableWithoutFeedback
     delay={300}
-    onDoubleTap={() => onSetDailyHabit(habit)}
+    onLongPress={() => onSetDailyHabit(habit)}
     onPress={() => onPress(habit)}
   >
     <Block huge>
@@ -19,5 +18,5 @@ export default ({ habit, onSetDailyHabit, onPress }) => (
       </Body>
       <DayHabits habits={habit.habits} habitId={habit.id} />
     </Block>
-  </DoubleTap>
+  </TouchableWithoutFeedback>
 );
