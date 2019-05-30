@@ -1,9 +1,9 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
+import { withTheme } from 'styled-components';
 import * as d3Shape from 'd3-shape';
 import * as d3Scale from 'd3-scale';
 import dayjs from 'dayjs';
-import { Body } from './styled';
 import { Svg } from 'expo';
 const {
   Defs,
@@ -93,7 +93,7 @@ var line = d3Shape
     // return i * cellSize;
   }); // set the y values for the line generator
 
-export default ({ moods }) => {
+export default withTheme(({ moods, theme }) => {
   const moodData = createMoodData(moods);
   // TODO: Add a prettier UI!
   if (!moodData.length === 0) {
@@ -114,8 +114,8 @@ export default ({ moods }) => {
           x2={`${width - daySpacer}`}
           y2='0'
         >
-          <Stop offset='0%' stopColor='red' />
-          <Stop offset='100%' stopColor='green' />
+          <Stop offset='0%' stopColor={theme.colors.moodGraphColorNegative} />
+          <Stop offset='100%' stopColor={theme.colors.moodGraphColorPositive} />
         </LinearGradient>
       </Defs>
       {icns.map((n, index) => {
@@ -130,9 +130,9 @@ export default ({ moods }) => {
             <Path
               d={path}
               fill='none'
-              stroke='#333'
+              stroke={`${theme.colors.moodGraphColor}dd`}
               strokeWidth='24'
-              fill='#00000010'
+              fill={`${theme.colors.moodGraphColor}10`}
             />
           </Symbol>,
           // 0.35 => cellSize / 2 (0.5) - 0.7/2
@@ -158,8 +158,7 @@ export default ({ moods }) => {
               x={-cellSize / 2}
               y={xScale(y) + 2}
               fontSize={cellSize / 2.5}
-              fill='#00000040'
-              fontWeight='bolder'
+              fill={`${theme.colors.moodGraphColor}80`}
             >
               {currentDay.format('ddd DD')}
             </Text>
@@ -169,13 +168,13 @@ export default ({ moods }) => {
                   cx={xScale(x)}
                   cy={xScale(y)}
                   r={cellSize / 7}
-                  fill='#333333'
+                  fill={theme.colors.moodGraphColor}
                 />
                 <Circle
                   cx={xScale(x)}
                   cy={xScale(y)}
                   r={cellSize / 3}
-                  fill='#33333310'
+                  fill={`${theme.colors.moodGraphColor}10`}
                 />
               </>
             )}
@@ -185,9 +184,9 @@ export default ({ moods }) => {
               x2={width}
               y2={xScale(index + 1)}
               key={iconName}
-              stroke='#55555510'
+              stroke={`${theme.colors.moodGraphColor}15`}
               strokeWidth='1'
-              strokeDasharray={'5, 5'}
+              strokeDasharray={'8, 8'}
             />
           </G>
         );
@@ -206,12 +205,12 @@ export default ({ moods }) => {
             y1={cellSize}
             x2={xScale(index)}
             y2={height}
-            stroke='#55555510'
+            stroke={`${theme.colors.moodGraphColor}15`}
             strokeWidth='1'
-            strokeDasharray={'5, 5'}
+            strokeDasharray={'8, 8'}
           />
         );
       })}
     </Svg>
   );
-};
+});
