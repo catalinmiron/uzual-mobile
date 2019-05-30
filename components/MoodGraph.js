@@ -143,10 +143,10 @@ export default withTheme(({ moods, theme }) => {
           // (cellSize * .7) / 2 => cellSize * .3 or 30% :p
           <Use
             key={`heading-${icon.iconName}`}
-            x={xScale(index) - cellSizeWidth * 0.35}
+            x={xScale(index) - cellSizeWidth * 0.45}
             href={`#symbol_${icon.iconName}`}
-            width={cellSizeWidth * 0.7}
-            height={cellSizeHeight * 0.7}
+            width={cellSizeWidth * 0.9}
+            height={cellSizeHeight * 0.9}
           />
         ];
       })}
