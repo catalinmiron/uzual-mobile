@@ -4,8 +4,7 @@ import { withTheme } from 'styled-components';
 import * as d3Shape from 'd3-shape';
 import * as d3Scale from 'd3-scale';
 import dayjs from 'dayjs';
-import { Svg } from 'expo';
-const {
+import Svg, {
   Defs,
   Stop,
   LinearGradient,
@@ -16,7 +15,7 @@ const {
   Text,
   Symbol,
   Use
-} = Svg;
+} from 'react-native-svg';
 
 import { start, end, days, daysInMonth } from '../utils/dayjs';
 import {

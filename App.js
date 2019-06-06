@@ -2,7 +2,10 @@ import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ThemeProvider } from 'styled-components';
 import { SafeAreaView, Platform, StatusBar, StyleSheet } from 'react-native';
-import { AppLoading, Asset, Font, Icon } from 'expo';
+import { AppLoading } from 'expo';
+import * as Icon from '@expo/vector-icons';
+import * as Font from 'expo-font';
+import { Asset } from 'expo-asset';
 import AppNavigator from './navigation/AppNavigator';
 import setupApolloClient from './config/setup';
 import Colors from './constants/Colors';
@@ -29,7 +32,7 @@ export default class App extends React.PureComponent {
       ({ theme }) => ({
         theme: theme === 'light' ? 'dark' : 'light'
       }),
-      () => setTimeout(this._changeStatusBarStyle, 250) //YOLO: hack
+      this._changeStatusBarStyle
     );
   };
 

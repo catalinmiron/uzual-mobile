@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform, AsyncStorage } from 'react-native';
-import { Icon } from 'expo';
+import * as Icon from '@expo/vector-icons';
 import FullLoading from '../../components/FullLoading';
 import {
   Body,
