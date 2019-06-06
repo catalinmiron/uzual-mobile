@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform, TouchableOpacity } from 'react-native';
-import { Icon } from 'expo';
+import * as Icon from '@expo/vector-icons';
 import { withTheme } from 'styled-components';
 import { Header } from './styled';
 
