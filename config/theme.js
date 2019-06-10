@@ -1,6 +1,17 @@
 import React from 'react';
 
 export const ThemeContext = React.createContext(null);
+
+const moodColors = {
+  dizzy: '#dc143c',
+  frown: '#ce533b',
+  frownOpen: '#be723a',
+  meh: '#ab8c39',
+  smile: '#93a337',
+  laugh: '#72b935',
+  grinHearts: '#32cd32'
+};
+
 const colors = {
   white: '#FFFFFF',
   bg: '#FAFAFA',
@@ -10,12 +21,13 @@ const colors = {
   shadow: '#dddddd',
   subheading: '#6D6D6D',
   error: 'rgba(242, 49, 76, 1)',
-  loadingBg: 'rgba(255, 255, 255, 0.9)',
+  loadingBg: 'rgba(255, 255, 255, 0.85)',
   tabBar: 'white',
   noBg: 'transparent',
   moodGraphColor: '#333333',
-  moodGraphColorNegative: '#f2314c',
-  moodGraphColorPositive: '#17ab26'
+  moodGraphColorNegative: moodColors.dizzy,
+  moodGraphColorPositive: moodColors.grinHearts,
+  ...moodColors
 };
 
 const colorsDark = {
@@ -24,7 +36,7 @@ const colorsDark = {
   default: '#d3d3d3',
   tabBar: '#333333',
   shadow: 'rgba(255, 255, 255, 0.25)',
-  loadingBg: 'rgba(0, 0, 0, 0.9)',
+  loadingBg: 'rgba(0, 0, 0, 0.85)',
   moodGraphColor: '#d3d3d3'
 };
 
