@@ -18,35 +18,8 @@ import Svg, {
 } from 'react-native-svg';
 
 import { start, end, days, daysInMonth } from '../utils/dayjs';
-import {
-  faDizzy,
-  faFrown,
-  faFrownOpen,
-  faMeh,
-  faSmile,
-  faLaugh,
-  faGrinHearts
-} from '@fortawesome/free-solid-svg-icons';
+import { icns, icons } from '../utils/icons';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
-//dizzy, frown, frown-open, meh,smile, laught, grid-hearts
-const icns = [
-  'Dizzy',
-  'Frown',
-  'FrownOpen',
-  'Meh',
-  'Smile',
-  'Laugh',
-  'GrinHearts'
-];
-const icons = {
-  Dizzy: faDizzy,
-  Frown: faFrown,
-  FrownOpen: faFrownOpen,
-  Meh: faMeh,
-  Smile: faSmile,
-  Laugh: faLaugh,
-  GrinHearts: faGrinHearts
-};
 
 const createMoodData = (data = realData) =>
   days.map(({ date: day }, i) => {
