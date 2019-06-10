@@ -2,14 +2,7 @@ import React from 'react';
 import { Platform, AsyncStorage } from 'react-native';
 import * as Icon from '@expo/vector-icons';
 import FullLoading from '../../components/FullLoading';
-import {
-  Body,
-  Heading,
-  Wrapper,
-  Block,
-  Flat,
-  FabButton
-} from '../../components/styled';
+import { Body, Block, Flat, FabButton } from '../../components/styled';
 import Habit from '../../components/Habit';
 import queries from './queries.gql';
 import { start, end, current, TIME_FORMAT } from '../../utils/dayjs';
