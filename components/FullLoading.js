@@ -1,9 +1,9 @@
 import React from 'react';
-import { LoadingWrapper, Body } from './styled';
+import { FullScreenWrapper, Body } from './styled';
 
 export default () => (
-  <LoadingWrapper center>
+  <FullScreenWrapper center>
     {/* <ActivityIndicator size="large" color={Colors.grey} /> */}
     <Body center>Loading...</Body>
-  </LoadingWrapper>
+  </FullScreenWrapper>
 );

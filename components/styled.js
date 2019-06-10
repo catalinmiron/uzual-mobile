@@ -47,7 +47,7 @@ export const LoginWrapper = styled(Wrapper)`
   width: 260px;
 `.withComponent(KeyboardAvoidingView);
 
-export const LoadingWrapper = styled(Wrapper)`
+export const FullScreenWrapper = styled(Wrapper)`
   position: absolute;
   top: 0
   left: 0
