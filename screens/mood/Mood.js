@@ -68,6 +68,9 @@ export default class Mood extends React.Component {
           From: {start.format(TIME_FORMAT)} - To:{current.format(TIME_FORMAT)}
         </Body> */}
         {moods && <MoodGraph moods={moods} />}
+        {!this._hasDayMood() && (
+          <DayMood setMood={this._onSetMood} query={queries.moods} />
+        )}
       </Wrapper>
     );
   };
@@ -78,4 +81,18 @@ export default class Mood extends React.Component {
     }
     return <Scroll>{this._renderX()}</Scroll>;
   }
+
+  _hasDayMood = () => {
+    const { moods } = this.props.data;
+    const lastMood = moods.slice(-1);
+
+    if (lastMood.length === 0) {
+      return false;
+    }
+    if (lastMood[0].date.startsWith(current.format(TIME_FORMAT))) {
+      return true;
+    }
+
+    return false;
+  };
 }
