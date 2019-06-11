@@ -103,10 +103,9 @@ export default withTheme(({ moods, theme }) => {
           >
             <Path
               d={path}
-              fill='none'
-              stroke={`${theme.colors.moodGraphColor}dd`}
+              stroke={`${theme.colors.moodColors[icon.iconName]}`}
               strokeWidth='24'
-              fill={`${theme.colors.moodGraphColor}10`}
+              fill={`${theme.colors.moodColors[icon.iconName]}20`}
             />
           </Symbol>,
           // 0.35 => cellSize / 2 (0.5) - 0.7/2
