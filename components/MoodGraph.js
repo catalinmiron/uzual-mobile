@@ -14,10 +14,12 @@ import Svg, {
   Circle,
   Text,
   Symbol,
-  Use
+  Use,
+  Rect,
+  Pattern
 } from 'react-native-svg';
 
-import { start, end, days, daysInMonth } from '../utils/dayjs';
+import { start, end, days, daysInMonth, current } from '../utils/dayjs';
 import { icns, icons } from '../utils/icons';
 const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
 
@@ -31,7 +33,7 @@ const createMoodData = (data = realData) =>
       y: i + 1,
       mood: item ? icons[item.type] : icons['Dizzy'],
       time: item ? dayjs(item.date) : null,
-      currentDay: dayjs(day)
+      itemDay: dayjs(day)
     };
   });
 
@@ -91,6 +93,20 @@ export default withTheme(({ moods, theme }) => {
           <Stop offset='0%' stopColor={theme.colors.moodGraphColorNegative} />
           <Stop offset='100%' stopColor={theme.colors.moodGraphColorPositive} />
         </LinearGradient>
+        <Pattern
+          id='subtlePattern'
+          patternUnits='userSpaceOnUse'
+          x='0'
+          y='0'
+          viewBox='0 0 4 4'
+          width='8'
+          height='8'
+        >
+          <Path
+            d='M-1,1 l2,-2 M0,3 l3,-3 M3,4 l2,-2'
+            stroke={`${theme.colors.moodGraphColor}10`}
+          />
+        </Pattern>
       </Defs>
       {icns.map((n, index) => {
         const icon = icons[n];
@@ -103,10 +119,9 @@ export default withTheme(({ moods, theme }) => {
           >
             <Path
               d={path}
-              fill='none'
-              stroke={`${theme.colors.moodGraphColor}dd`}
+              stroke={`${theme.colors.moodColors[icon.iconName]}`}
               strokeWidth='24'
-              fill={`${theme.colors.moodGraphColor}10`}
+              fill={`${theme.colors.moodColors[icon.iconName]}20`}
             />
           </Symbol>,
           // 0.35 => cellSize / 2 (0.5) - 0.7/2
@@ -123,30 +138,30 @@ export default withTheme(({ moods, theme }) => {
         ];
       })}
       {moodData.map((mood, index) => {
-        const { iconName, time, x, y, currentDay } = mood;
+        const { iconName, time, x, y, itemDay } = mood;
         return (
           <G key={time || index}>
             <Text
               fontFamily='Menlo'
               textAnchor='end'
               x={-10}
-              y={yScale(currentDay) + 4}
+              y={yScale(itemDay) + 4}
               fontSize={cellSizeHeight / 2.5}
               fill={`${theme.colors.moodGraphColor}80`}
             >
-              {dayjs(currentDay).format('ddd DD')}
+              {dayjs(itemDay).format('ddd DD')}
             </Text>
             {time && (
               <>
                 <Circle
                   cx={xScale(x)}
-                  cy={yScale(currentDay)}
+                  cy={yScale(itemDay)}
                   r={cellSizeHeight / 7}
                   fill={theme.colors.moodGraphColor}
                 />
                 <Circle
                   cx={xScale(x)}
-                  cy={yScale(currentDay)}
+                  cy={yScale(itemDay)}
                   r={cellSizeHeight / 3}
                   fill={`${theme.colors.moodGraphColor}10`}
                 />
@@ -154,9 +169,9 @@ export default withTheme(({ moods, theme }) => {
             )}
             <Line
               x1={0}
-              y1={yScale(currentDay)}
+              y1={yScale(itemDay)}
               x2={width}
-              y2={yScale(currentDay)}
+              y2={yScale(itemDay)}
               key={iconName}
               stroke={`${theme.colors.moodGraphColor}15`}
               strokeWidth='1'
@@ -170,6 +185,13 @@ export default withTheme(({ moods, theme }) => {
         fill='none'
         stroke='url(#moodGradient)'
         strokeWidth='1'
+      />
+      <Rect
+        x='0'
+        y={yScale(current.subtract(1, 'day')) + cellSizeHeight / 2}
+        width={width}
+        height={end.diff(current.subtract(1, 'day'), 'day') * cellSizeHeight}
+        fill='url(#subtlePattern)'
       />
       {icns.map((icon, index) => {
         return (

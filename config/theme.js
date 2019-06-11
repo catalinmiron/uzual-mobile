@@ -5,11 +5,11 @@ export const ThemeContext = React.createContext(null);
 const moodColors = {
   dizzy: '#dc143c',
   frown: '#ce533b',
-  frownOpen: '#be723a',
+  'frown-open': '#be723a',
   meh: '#ab8c39',
   smile: '#93a337',
   laugh: '#72b935',
-  grinHearts: '#32cd32'
+  'grin-hearts': '#32cd32'
 };
 
 const colors = {
@@ -26,8 +26,8 @@ const colors = {
   noBg: 'transparent',
   moodGraphColor: '#333333',
   moodGraphColorNegative: moodColors.dizzy,
-  moodGraphColorPositive: moodColors.grinHearts,
-  ...moodColors
+  moodGraphColorPositive: moodColors['grin-hearts'],
+  moodColors
 };
 
 const colorsDark = {

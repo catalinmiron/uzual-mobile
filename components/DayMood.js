@@ -15,7 +15,7 @@ import {
 } from './styled';
 const { width, height } = Dimensions.get('screen');
 
-const iconSize = (width * 0.7) / icns.length;
+const iconSize = (width * 0.8) / icns.length;
 const iconSpacing = (width * 0.2) / icns.length;
 const svgSize = (iconSize + iconSpacing) * (icns.length - 1);
 
@@ -23,8 +23,8 @@ class DayMood extends React.Component {
   _renderMoodIcons = () => {
     const { theme } = this.props;
 
-    return icns.map((n, index) => {
-      const icon = icons[n];
+    return icns.map((iconType, index) => {
+      const icon = icons[iconType];
       const [w, h, _, __, path] = icon.icon;
       return [
         <Symbol
@@ -34,23 +34,24 @@ class DayMood extends React.Component {
         >
           <Path
             d={path}
-            fill='none'
-            stroke={`${theme.colors.moodGraphColor}dd`}
+            stroke={`${theme.colors.moodColors[icon.iconName]}`}
             strokeWidth='24'
-            fill={`${theme.colors.moodGraphColor}10`}
+            fill={`${theme.colors.moodColors[icon.iconName]}20`}
           />
         </Symbol>,
-        // 0.35 => cellSize / 2 (0.5) - 0.7/2
-        // subtract the cellSize / 2 to align it to the middle
-        // subtract half of the actual size
-        // (cellSize * .7) / 2 => cellSize * .3 or 30% :p
         <G
           key={`heading-${icon.iconName}`}
-          onPressIn={() => console.log(icon.iconName)}
+          onPress={() => this.props.setMood(iconType)}
           width={iconSize}
           height={iconSize}
           x={index * (iconSize + iconSpacing)}
         >
+          <Circle
+            r={iconSize / 2}
+            fill='transparent'
+            cx={iconSize / 2}
+            cy={iconSize / 2}
+          />
           <Use
             href={`#symbol_${icon.iconName}`}
             width={iconSize}
@@ -63,24 +64,11 @@ class DayMood extends React.Component {
 
   _renderIconList = () => {
     return (
-      <Row>
-        {icns.map(icon => {
-          return (
-            <Button
-              width='-1'
-              key={icon}
-              onPress={this.props.setMood.bind(this, icon)}
-            >
-              <Body white noMargin>
-                {icon}
-              </Body>
-            </Button>
-          );
-        })}
-      </Row>
-    );
-    return (
-      <Svg height={iconSize} width={width} viewBox={`0 0 ${width} ${iconSize}`}>
+      <Svg
+        height={iconSize}
+        width={svgSize}
+        viewBox={`0 0 ${width} ${iconSize}`}
+      >
         {this._renderMoodIcons()}
       </Svg>
     );
@@ -89,7 +77,9 @@ class DayMood extends React.Component {
   render() {
     return (
       <FullScreenWrapper center>
-        <Body>Actually, what's your mood today?</Body>
+        <Heading medium huge>
+          Actually, what's your mood today?
+        </Heading>
         {this._renderIconList()}
       </FullScreenWrapper>
     );
