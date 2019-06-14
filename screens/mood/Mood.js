@@ -1,16 +1,86 @@
 import React from 'react';
+import {
+  Platform,
+  Dimensions,
+  Image,
+  CameraRoll,
+  Share,
+  TouchableOpacity
+} from 'react-native';
 import { v4 as uuid } from 'uuid';
+import { captureRef as takeSnapshotAsync } from 'react-native-view-shot';
+import * as Icon from '@expo/vector-icons';
 import queries from './queries.gql';
 import FullLoading from '../../components/FullLoading';
-import { Body, Heading, Wrapper, Scroll } from '../../components/styled';
+import {
+  RowAligned,
+  Body,
+  Heading,
+  Wrapper,
+  Scroll,
+  Button,
+  Spacer
+} from '../../components/styled';
 import MoodGraph from '../../components/MoodGraph';
 import DayMood from '../../components/DayMood';
 import { start, current, end, TIME_FORMAT } from '../../utils/dayjs';
 import { POLL_INTERVAL } from '../../constants/vars';
+const { width, height } = Dimensions.get('screen');
 
 export default class Mood extends React.Component {
   static navigationOptions = {
     header: null
+  };
+  moodGraphRef = React.createRef();
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.navigation.getParam('isLoading')) {
+      setTimeout(() => {
+        takeSnapshotAsync(this.moodGraphRef, {
+          format: 'png',
+          result: 'tmpfile',
+          quality: 1
+        }).then(result => {
+          this.props.navigation.setParams({
+            isLoading: false,
+            imageUri: result
+          });
+        });
+      }, 0);
+      // let saveResult = await CameraRoll.saveToCameraRoll(result, 'photo');
+    }
+  }
+
+  _renderHeader = () => {
+    return (
+      <RowAligned>
+        <Heading left large>
+          MOODS
+        </Heading>
+        <Wrapper right>
+          <TouchableOpacity onPress={this._takeSnapshot}>
+            <Icon.Ionicons
+              name={Platform.OS === 'ios' ? 'ios-share' : 'md-share'}
+              size={this.props.theme.size.large}
+              style={{ marginBottom: -3 }}
+              color={this.props.theme.colors.placeholder}
+            />
+          </TouchableOpacity>
+        </Wrapper>
+      </RowAligned>
+    );
+  };
+
+  _renderContent = () => {
+    const { moods } = this.props.data;
+    return (
+      <>
+        <MoodGraph moods={moods} />
+        {!this._hasDayMood() && (
+          <DayMood setMood={this._onSetMood} query={queries.moods} />
+        )}
+      </>
+    );
   };
 
   _onSetMood = async type => {
@@ -57,27 +127,150 @@ export default class Mood extends React.Component {
     });
   };
 
+  _takeSnapshot = async () => {
+    this.props.navigation.setParams({ tabBarVisible: false, isLoading: true });
+  };
+
+  _cancelSharing = () => {
+    this.props.navigation.setParams({
+      isLoading: false,
+      imageUri: null,
+      tabBarVisible: true
+    });
+  };
+
+  _onSaveMoodGraph = async () => {
+    const { isLoading, imageUri } = this._getProps();
+    await CameraRoll.saveToCameraRoll(imageUri, 'photo');
+
+    this._cancelSharing();
+  };
+
+  _onShareMoodGraph = async () => {
+    try {
+      const { imageUri } = this._getProps();
+      const result = await Share.share({
+        message:
+          'My Mood graph from @Uzualapp (https://uzual.app) make me feel better.',
+        url: imageUri
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          this._cancelSharing();
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  _getProps = () => {
+    return {
+      isLoading: this.props.navigation.getParam('isLoading', false),
+      imageUri: this.props.navigation.getParam('imageUri', null)
+    };
+  };
+
   _renderX = () => {
-    const { moods } = this.props.data;
+    const { isLoading } = this._getProps();
+
     return (
-      <Wrapper>
-        <Heading left large>
-          MOODS
-        </Heading>
+      <Wrapper
+        ref={this.moodGraphRef}
+        center={isLoading}
+        noMargin={isLoading}
+        style={{
+          height: isLoading ? height : undefined
+        }}
+      >
+        {!isLoading && this._renderHeader()}
         {/* <Body>
           From: {start.format(TIME_FORMAT)} - To:{current.format(TIME_FORMAT)}
         </Body> */}
-        {moods && <MoodGraph moods={moods} />}
-        {!this._hasDayMood() && (
-          <DayMood setMood={this._onSetMood} query={queries.moods} />
-        )}
+        {this._renderContent()}
+        {isLoading && this._renderCopyright()}
       </Wrapper>
+    );
+  };
+
+  _renderSnapshot = () => {
+    const { imageUri } = this._getProps();
+    return (
+      <Wrapper center>
+        <Image
+          source={{ uri: imageUri }}
+          style={[{ width, height }]}
+          resizeMode='contain'
+        />
+        <RowAligned
+          center
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: height * 0.1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: this.props.theme.colors.loadingBg
+          }}
+        >
+          <Button
+            width={width * 0.2}
+            loadingBg
+            noMargin
+            marginRight={this.props.theme.spacing.default}
+            onPress={this._cancelSharing}
+          >
+            <Body center placeholder>
+              Cancel
+            </Body>
+          </Button>
+          <Button
+            width={width * 0.2}
+            loadingBg
+            noMargin
+            onPress={this._onShareMoodGraph}
+          >
+            <Body center primary>
+              Share
+            </Body>
+          </Button>
+          <Button
+            width={width * 0.2}
+            loadingBg
+            noMargin
+            onPress={this._onSaveMoodGraph}
+            marginRight={this.props.theme.spacing.default}
+          >
+            <Body center={this.props.theme.spacing.default}>Save</Body>
+          </Button>
+        </RowAligned>
+      </Wrapper>
+    );
+  };
+
+  _renderCopyright = () => {
+    return (
+      <Body center noMargin placeholder marginTop={30}>
+        Go get Uzual.app -> https://uzual.app
+      </Body>
     );
   };
 
   render() {
     if (this.props.data.loading && !this.props.data.moods) {
       return <FullLoading />;
+    }
+
+    const { imageUri } = this._getProps();
+    if (imageUri) {
+      return this._renderSnapshot();
     }
     return <Scroll>{this._renderX()}</Scroll>;
   }
