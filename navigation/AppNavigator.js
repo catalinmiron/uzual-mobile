@@ -67,14 +67,20 @@ const MoodStack = createStackNavigator(
   },
   {
     headerMode: 'none',
-    navigationOptions: {
-      tabBarLabel: 'Mood',
-      tabBarIcon: ({ focused }) => (
-        <TabBarIcon
-          focused={focused}
-          name={Platform.OS === 'ios' ? 'ios-pulse' : 'md-pulse'}
-        />
-      )
+    navigationOptions: ({ navigation }) => {
+      const navParams = navigation.state.routes[0].params;
+      const tabBarVisible = navParams ? navParams.tabBarVisible : true;
+
+      return {
+        tabBarVisible,
+        tabBarLabel: 'Mood',
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === 'ios' ? 'ios-pulse' : 'md-pulse'}
+          />
+        )
+      };
     }
   }
 );

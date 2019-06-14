@@ -71,6 +71,7 @@ export const Body = styled.Text`
   font-size: ${theme('size')};
   color: ${theme('colors')};
   margin-bottom: ${theme('spacing')}
+  margin-top: ${props => props.marginTop || 0}
   opacity: ${props => (props.faded ? 0.6 : 1)};
   font-family: 'space-mono';
   text-align: ${theme('textAlign')};
@@ -105,6 +106,8 @@ export const Button = styled.TouchableOpacity`
   height: ${theme('button')};
   width: ${props => props.width || props.theme.layout.width}
   margin-top: ${theme('spacing')};
+  margin-right: ${props =>
+    props.marginRight ? props.theme.spacing.default : 0}
 `;
 
 export const HabitSquare = styled.View`
