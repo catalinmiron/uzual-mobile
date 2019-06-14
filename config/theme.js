@@ -81,6 +81,7 @@ const height = {
 };
 
 const button = {
+  tiny: 26,
   default: 40,
   medium: 60,
   big: 80
