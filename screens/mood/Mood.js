@@ -63,7 +63,7 @@ export default class Mood extends React.Component {
               name={Platform.OS === 'ios' ? 'ios-share' : 'md-share'}
               size={this.props.theme.size.large}
               style={{ marginBottom: -3 }}
-              color={this.props.theme.colors.placeholder}
+              color={this.props.theme.colors.default}
             />
           </TouchableOpacity>
         </Wrapper>
