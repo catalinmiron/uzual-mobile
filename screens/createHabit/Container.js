@@ -7,6 +7,9 @@ export default compose(
   graphql(mutations.createHabit, {
     name: 'createHabit'
   }),
+  graphql(mutations.deleteHabit, {
+    name: 'deleteHabit'
+  }),
   withApollo,
   withTheme
 )(CreateHabit);

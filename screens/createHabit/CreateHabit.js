@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-native';
+import { Alert, Switch } from 'react-native';
 import FullLoading from '../../components/FullLoading';
 import {
   Body,
@@ -132,6 +132,70 @@ export default class CreateHabit extends React.Component {
   _isEditMode = () => this.state.type === 'EDIT';
 
   _goBack = () => this.props.navigation.goBack();
+  _onDeleteHabit = () => {
+    Alert.alert(
+      `Confirm habit deletion`,
+      `You're about to delete the habit. There's no way to undo it. Think twice before acting.`,
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel'
+        },
+        {
+          text: 'Delete habit',
+          onPress: this._deleteHabit,
+          style: 'destructive'
+        }
+      ]
+    );
+  };
+
+  _deleteHabit = () => {
+    const { id } = this.state;
+    try {
+      this.props.deleteHabit({
+        variables: {
+          id
+        },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          deleteHabit: {
+            __typename: 'Habit',
+            id
+          }
+        },
+        update: (proxy, { data: { deleteHabit } }) => {
+          try {
+            const data = proxy.readQuery({
+              query: queries.habits,
+              variables: { start, end }
+            });
+
+            const habitIndex = data.habits.findIndex(habit => habit.id === id);
+
+            const newData = [
+              ...data.habits.slice(0, habitIndex),
+              ...data.habits.slice(habitIndex + 1, data.length)
+            ];
+
+            proxy.writeQuery({
+              query: queries.habits,
+              variables: { start, end },
+              data: { ...data, habits: newData }
+            });
+            // Update the cache and return. This is because maybe the
+            // user is offline and so the promise will never be resolved.
+            this._goBack();
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   _renderCreateHabitForm = () => {
     const isEditMode = this._isEditMode();
@@ -176,6 +240,13 @@ export default class CreateHabit extends React.Component {
             {heading}
           </Body>
         </Button>
+        {isEditMode && (
+          <Button onPress={this._onDeleteHabit} error>
+            <Body white center noMargin>
+              DELETE HABIT
+            </Body>
+          </Button>
+        )}
       </Wrapper>
     );
   };
