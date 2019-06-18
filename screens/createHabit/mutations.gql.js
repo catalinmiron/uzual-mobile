@@ -28,4 +28,12 @@ const createHabit = gql`
   }
 `;
 
-export default { createHabit };
+const deleteHabit = gql`
+  mutation deleteHabit($id: ID!) {
+    deleteHabit(id: $id) {
+      id
+    }
+  }
+`;
+
+export default { createHabit, deleteHabit };
