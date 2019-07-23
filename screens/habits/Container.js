@@ -20,6 +20,9 @@ export default compose(
   graphql(mutations.setDailyHabit, {
     name: 'setDailyHabit'
   }),
+  graphql(mutations.setPushToken, {
+    name: 'setPushToken'
+  }),
   withApollo,
   withTheme
 )(Habits);

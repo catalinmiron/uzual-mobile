@@ -10,4 +10,12 @@ const setDailyHabit = gql`
   }
 `;
 
-export default { setDailyHabit };
+const setPushToken = gql`
+  mutation setPushToken($pushToken: String!) {
+    setPushToken(pushToken: $pushToken) {
+      pushToken
+    }
+  }
+`;
+
+export default { setDailyHabit, setPushToken };
