@@ -7,6 +7,7 @@ const me = gql`
       name
       email
       isPro
+      pushToken
     }
   }
 `;
