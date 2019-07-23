@@ -8,8 +8,10 @@ import queries from './queries.gql';
 import { start, end, current, TIME_FORMAT } from '../../utils/dayjs';
 import { POLL_INTERVAL } from '../../constants/vars';
 import { v4 as uuid } from 'uuid';
-import { Notifications, Constants } from 'expo';
+import { Notifications } from 'expo';
+import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import { scheduleMoodReminders } from '../../utils/reminders';
 
 export default class Home extends React.Component {
   static navigationOptions = {
@@ -37,6 +39,8 @@ export default class Home extends React.Component {
     } else {
       // alert('Must use physical device for Push Notifications');
     }
+
+    await scheduleMoodReminders();
   };
 
   _onFabPress = () => {
