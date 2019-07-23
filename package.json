@@ -28,6 +28,7 @@
     "expo": "^33.0.0",
     "expo-asset": "^5.0.1",
     "expo-font": "~5.0.1",
+    "expo-permissions": "~5.0.1",
     "graphql": "^14.2.1",
     "graphql-tag": "^2.10.1",
     "react": "16.8.3",
