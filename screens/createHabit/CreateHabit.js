@@ -200,6 +200,7 @@ export default class CreateHabit extends React.Component {
   _renderCreateHabitForm = () => {
     const isEditMode = this._isEditMode();
     const heading = `${isEditMode ? 'EDIT' : 'CREATE'} HABIT`;
+    const buttonText = `${isEditMode ? 'SAVE' : 'CREATE'} HABIT`;
     return (
       <Wrapper>
         <Heading left large>
@@ -237,7 +238,7 @@ export default class CreateHabit extends React.Component {
         </Spacer>
         <Button onPress={this._createHabit} primary huge>
           <Body white center noMargin>
-            {heading}
+            {buttonText}
           </Body>
         </Button>
         {isEditMode && (
