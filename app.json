@@ -2,22 +2,29 @@
   "expo": {
     "name": "Uzual",
     "slug": "Uzual",
+    "description": "Mood & Habits tracker.",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
+    "primaryColor": "#40E0D0",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#40E0D0"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
+    "android": {
+      "permissions": [],
+      "package": "com.batmancodes.uzual"
+    },
     "ios": {
+      "bundleIdentifier": "com.batmancodes.uzual",
       "supportsTablet": true
     }
   }
