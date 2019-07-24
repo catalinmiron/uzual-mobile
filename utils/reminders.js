@@ -17,6 +17,13 @@ import { MOOD_REMINDER } from '../constants/vars';
 // repeat (optional) (string) -- 'minute', 'hour', 'day', 'week', 'month', or 'year'.
 // (Android only) intervalMs (optional) (number) -- Repeat interval in number of milliseconds
 const scheduleMoodReminders = async () => {
+  const hasNotificationId = AsyncStorage.getItem(MOOD_REMINDER);
+
+  if (hasNotificationId) {
+    console.log('Already have a notification.');
+    return;
+  }
+
   const notificationId = await Notifications.scheduleLocalNotificationAsync(
     {
       title: 'Mood reminder',
@@ -24,6 +31,7 @@ const scheduleMoodReminders = async () => {
     },
     {
       time: dayjs()
+        .add(1, 'day')
         .set('hour', 20)
         .set('minutes', 0)
         .valueOf(),
