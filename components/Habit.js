@@ -5,9 +5,8 @@ import DayHabits from './DayHabits';
 
 export default ({ habit, onSetDailyHabit, onPress }) => (
   <TouchableWithoutFeedback
-    delay={300}
-    onLongPress={() => onSetDailyHabit(habit)}
-    onPress={() => onPress(habit)}
+    onPress={() => onSetDailyHabit(habit)}
+    onLongPress={() => onPress(habit)}
   >
     <Block huge>
       <Body noMargin medium>

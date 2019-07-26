@@ -15,8 +15,8 @@ import {
 
 export default class Login extends React.Component {
   state = {
-    email: 'mironcatalin@gmail.com',
-    password: 'password',
+    email: '',
+    password: '',
     isLoading: false,
     error: null
   };
@@ -91,7 +91,7 @@ export default class Login extends React.Component {
         }}
       >
         <Wrapper center>
-          <LoginWrapper center behavior="position" enabled>
+          <LoginWrapper center behavior='position' enabled>
             <Heading xxxlarge center>
               UZUAL
             </Heading>

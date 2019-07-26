@@ -15,9 +15,9 @@ import {
 
 export default class Register extends React.Component {
   state = {
-    email: 'mironcatalin@gmail.com',
-    password: 'password',
-    name: 'Catalin Miron',
+    email: '',
+    password: '',
+    name: '',
     isLoading: false,
     error: null
   };
@@ -93,7 +93,7 @@ export default class Register extends React.Component {
         }}
       >
         <Wrapper center>
-          <LoginWrapper center behavior="position" enabled>
+          <LoginWrapper center behavior='position' enabled>
             <Heading xxxlarge center>
               UZUAL
             </Heading>
