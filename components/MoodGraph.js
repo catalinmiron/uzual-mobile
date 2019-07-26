@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
+import { Platform, Dimensions } from 'react-native';
 import { withTheme } from 'styled-components';
 import * as d3Shape from 'd3-shape';
 import * as d3Scale from 'd3-scale';
@@ -38,7 +38,10 @@ const createMoodData = (data = realData) =>
   });
 
 const daySpacer = 50;
-const height = screenHeight * 0.8;
+const height = Platform.select({
+  android: screenHeight * 0.75,
+  ios: screenHeight * 0.8
+});
 const ITEMS_PER_ROW = icns.length;
 // const cellSize = height / daysInMonth;
 const width = screenWidth * 0.8 + daySpacer;

@@ -64,7 +64,7 @@ export default class App extends React.PureComponent {
             value={{ theme: this.state.theme, toggleTheme: this.toggleTheme }}
           >
             <ThemeProvider theme={this.state.theme === 'light' ? light : dark}>
-              <Bg forceInset={{ bottom: 'never' }}>
+              <Bg forceInset={{ bottom: 'never', top: 'always' }}>
                 <AppNavigator />
               </Bg>
             </ThemeProvider>

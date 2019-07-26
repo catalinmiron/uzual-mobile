@@ -12,6 +12,7 @@ import { captureRef as takeSnapshotAsync } from 'react-native-view-shot';
 import * as Icon from '@expo/vector-icons';
 import queries from './queries.gql';
 import FullLoading from '../../components/FullLoading';
+import * as Permissions from 'expo-permissions';
 import {
   RowAligned,
   Body,
@@ -57,7 +58,7 @@ export default class Mood extends React.Component {
         <Heading left large>
           MOODS
         </Heading>
-        <Wrapper right>
+        <Wrapper style={{ alignItems: 'flex-end' }}>
           <TouchableOpacity onPress={this._takeSnapshot}>
             <Icon.Ionicons
               name={Platform.OS === 'ios' ? 'ios-share' : 'md-share'}
@@ -141,7 +142,15 @@ export default class Mood extends React.Component {
 
   _onSaveMoodGraph = async () => {
     const { isLoading, imageUri } = this._getProps();
-    await CameraRoll.saveToCameraRoll(imageUri, 'photo');
+    const permission = await Permissions.getAsync(Permissions.CAMERA_ROLL);
+    if (permission.status !== 'granted') {
+      const newPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (newPermission.status === 'granted') {
+        await CameraRoll.saveToCameraRoll(imageUri, 'photo');
+      }
+    } else {
+      await CameraRoll.saveToCameraRoll(imageUri, 'photo');
+    }
 
     this._cancelSharing();
   };

@@ -20,7 +20,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "android": {
-      "permissions": [],
+      "permissions": ["CAMERA_ROLL", "CAMERA", "NOTIFICATIONS"],
       "package": "com.BatmanCodes.Uzual"
     },
     "ios": {
