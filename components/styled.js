@@ -16,6 +16,13 @@ export const Row = styled.View`
   flex-wrap: ${props => (props.wrap ? 'wrap' : 'nowrap')};
 `;
 
+export const Line = styled.View`
+  height: 2px;
+  background-color: ${props => props.theme.colors.shadow};
+  width: 200px;
+  margin: 20px 0;
+`;
+
 export const RowAligned = styled(Row)`
   align-items: ${theme('flexAlign')}
   justify-content: ${theme('flexAlign')}

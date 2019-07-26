@@ -78,8 +78,10 @@ export default class App extends React.PureComponent {
     this.apolloClient = await setupApolloClient();
 
     return Promise.all([
-      // Asset.loadAsync([
-      // ]),
+      Asset.loadAsync([
+        require('./assets/images/buymeacoffee-logo.png'),
+        require('./assets/images/youtube-logo.png')
+      ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
         ...Icon.Ionicons.font,

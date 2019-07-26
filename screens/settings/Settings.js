@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, Switch } from 'react-native';
+import { StyleSheet, AsyncStorage, Switch, Image, Linking } from 'react-native';
 import FullLoading from '../../components/FullLoading';
 import {
   Body,
@@ -10,10 +10,12 @@ import {
   Badge,
   Scroll,
   Row,
-  Spacer
+  Spacer,
+  Line
 } from '../../components/styled';
 
 import { ThemeContext } from '../../config/theme';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ProBadge = ({ isPro }) => (
   <Badge primary={isPro} shadow={!isPro}>
@@ -59,8 +61,46 @@ export default class Settings extends React.PureComponent {
             </Spacer>
           )}
         </ThemeContext.Consumer>
+        <Line />
+        <Wrapper style={styles.row}>
+          <TouchableOpacity
+            onPress={() =>
+              this._openLink('http://buymeacoffee.com/catalinmiron')
+            }
+          >
+            <Body center>Wanna support me?</Body>
+            <Image
+              source={require('../../assets/images/buymeacoffee-logo.png')}
+            />
+          </TouchableOpacity>
+        </Wrapper>
+
+        <Wrapper style={styles.row}>
+          <TouchableOpacity
+            onPress={() =>
+              this._openLink(
+                'https://www.youtube.com/playlist?list=PLQocKVqyqZDQrUU7zUfFogbAO0ynvQK2j'
+              )
+            }
+          >
+            <Body center>Watch the coding process</Body>
+            <Image
+              style={styles.image}
+              source={require('../../assets/images/youtube-logo.png')}
+            />
+          </TouchableOpacity>
+        </Wrapper>
       </Wrapper>
     );
+  };
+
+  _openLink = async url => {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      Linking.openURL(url);
+    } else {
+      console.log("Don't know how to open URI: " + url);
+    }
   };
 
   _logout = () => {
@@ -79,3 +119,17 @@ export default class Settings extends React.PureComponent {
     return <Scroll>{this._renderX()}</Scroll>;
   }
 }
+
+const styles = StyleSheet.create({
+  image: {
+    width: 100,
+    height: 60,
+    resizeMode: 'contain',
+    alignSelf: 'center'
+  },
+  row: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20
+  }
+});

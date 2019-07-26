@@ -21,10 +21,10 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "permissions": [],
-      "package": "com.batmancodes.uzual"
+      "package": "com.BatmanCodes.Uzual"
     },
     "ios": {
-      "bundleIdentifier": "com.batmancodes.uzual",
+      "bundleIdentifier": "com.BatmanCodes.Uzual",
       "supportsTablet": true
     }
   }
