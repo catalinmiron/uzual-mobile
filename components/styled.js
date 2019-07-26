@@ -95,6 +95,7 @@ export const Input = styled.TextInput`
   font-family: 'space-mono';
   color: ${theme('colors')}
   width: 260px;
+  text-align-vertical: top;
 `;
 
 export const Badge = styled.View`

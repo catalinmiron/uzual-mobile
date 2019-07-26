@@ -218,6 +218,8 @@ export default class CreateHabit extends React.Component {
         </Body>
         <Input
           multiline={true}
+          maxLength={200}
+          style={{ height: 120, alignContent: 'flex-start' }}
           defaultValue={this.state.description}
           onChangeText={e => this._change('description', e)}
         />
