@@ -21,7 +21,8 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "permissions": ["CAMERA_ROLL", "CAMERA", "NOTIFICATIONS"],
-      "package": "com.BatmanCodes.Uzual"
+      "package": "com.BatmanCodes.Uzual",
+      "versionCode": 2
     },
     "ios": {
       "bundleIdentifier": "com.BatmanCodes.Uzual",

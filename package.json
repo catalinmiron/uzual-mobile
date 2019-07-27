@@ -6,7 +6,9 @@
     "ios": "expo start --ios",
     "eject": "expo eject",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll",
-    "debugger": "rndebugger-open --expo"
+    "debugger": "rndebugger-open --expo",
+    "build-android": "expo build:android -t app-bundle",
+    "build-ios": "expo build:ios"
   },
   "jest": {
     "preset": "jest-expo"
