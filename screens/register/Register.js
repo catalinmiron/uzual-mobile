@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage } from 'react-native';
+import { Image, AsyncStorage } from 'react-native';
 import { USER_ACCESS_TOKEN } from '../../constants/auth';
 import FullLoading from '../../components/FullLoading';
 import {
@@ -92,12 +92,21 @@ export default class Register extends React.Component {
           justifyContent: 'center'
         }}
       >
-        <Wrapper center>
+        <Wrapper center noMargin>
           <LoginWrapper center behavior='position' enabled>
+            <Image
+              source={require('../../assets/images/brain.png')}
+              style={{
+                height: 100,
+                width: 100,
+                resizeMode: 'contain',
+                alignSelf: 'center'
+              }}
+            />
             <Heading xxxlarge center>
               UZUAL
             </Heading>
-            <Body xHuge faded center>
+            <Body huge faded center>
               Feed your brain with habits for a better mood
             </Body>
             <Body left placeholder tiny>
@@ -124,12 +133,12 @@ export default class Register extends React.Component {
               onChangeText={e => this._change('password', e)}
             />
             {this.state.error && <Body error>{this.state.error}</Body>}
-            <Button onPress={this._register} primary huge>
+            <Button onPress={this._register} primary>
               <Body white center noMargin>
                 REGISTER
               </Body>
             </Button>
-            <Spacer big>
+            <Spacer>
               <Body shadow center noMargin>
                 OR
               </Body>

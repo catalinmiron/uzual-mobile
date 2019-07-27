@@ -80,7 +80,8 @@ export default class App extends React.PureComponent {
     return Promise.all([
       Asset.loadAsync([
         require('./assets/images/buymeacoffee-logo.png'),
-        require('./assets/images/youtube-logo.png')
+        require('./assets/images/youtube-logo.png'),
+        require('./assets/images/brain.png')
       ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
