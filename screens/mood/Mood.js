@@ -27,6 +27,7 @@ import DayMood from '../../components/DayMood';
 import { start, current, end, TIME_FORMAT } from '../../utils/dayjs';
 import { POLL_INTERVAL } from '../../constants/vars';
 const { width, height } = Dimensions.get('screen');
+const hitSlop = { top: 10, left: 10, bottom: 10, right: 10 };
 
 export default class Mood extends React.Component {
   static navigationOptions = {
@@ -59,10 +60,10 @@ export default class Mood extends React.Component {
           MOODS
         </Heading>
         <Wrapper style={{ alignItems: 'flex-end' }}>
-          <TouchableOpacity onPress={this._takeSnapshot}>
+          <TouchableOpacity onPress={this._takeSnapshot} hitSlop={hitSlop}>
             <Icon.Ionicons
               name={Platform.OS === 'ios' ? 'ios-share' : 'md-share'}
-              size={this.props.theme.size.large}
+              size={this.props.theme.size.xlarge}
               style={{ marginBottom: -3 }}
               color={this.props.theme.colors.default}
             />
@@ -245,6 +246,7 @@ export default class Mood extends React.Component {
             loadingBg
             noMargin
             onPress={this._onShareMoodGraph}
+            hitSlop={hitSlop}
           >
             <Body center primary>
               Share
