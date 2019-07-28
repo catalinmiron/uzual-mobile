@@ -4,8 +4,11 @@
     "slug": "Uzual",
     "description": "Mood & Habits tracker.",
     "privacy": "public",
-    "sdkVersion": "33.0.0",
-    "platforms": ["ios", "android"],
+    "sdkVersion": "34.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -18,15 +21,24 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
-      "permissions": ["CAMERA_ROLL", "CAMERA", "NOTIFICATIONS"],
+      "permissions": [
+        "CAMERA_ROLL",
+        "CAMERA",
+        "NOTIFICATIONS"
+      ],
       "package": "com.BatmanCodes.Uzual",
       "versionCode": 2
     },
     "ios": {
       "bundleIdentifier": "com.BatmanCodes.Uzual",
       "supportsTablet": true
-    }
-  }
+    },
+    "entryPoint": "node_modules/expo/AppEntry.js"
+  },
+  "displayName": "Uzual",
+  "name": "Uzual"
 }
