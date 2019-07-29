@@ -19,10 +19,17 @@ import { MOOD_REMINDER } from '../constants/vars';
 const scheduleMoodReminders = async () => {
   const hasNotificationId = AsyncStorage.getItem(MOOD_REMINDER);
 
-  if (hasNotificationId) {
-    console.log('Already have a notification.');
-    return;
-  }
+  // if (hasNotificationId) {
+  //   console.log('Already have a notification.');
+  //   return;
+  // }
+
+  const time = dayjs()
+    .add(dayjs().hour() > 20 ? 1 : 0, 'day')
+    .set('hour', 20)
+    .set('minutes', 0);
+
+  console.log('Scheduled notification for: ', time);
 
   const notificationId = await Notifications.scheduleLocalNotificationAsync(
     {
@@ -30,11 +37,7 @@ const scheduleMoodReminders = async () => {
       body: `It's time to set your current mood. Always stay positive!` //Come with a better text
     },
     {
-      time: dayjs()
-        .add(1, 'day')
-        .set('hour', 20)
-        .set('minutes', 0)
-        .valueOf(),
+      time: time.valueOf(),
       repeat: 'day'
     }
   );

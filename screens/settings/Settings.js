@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, AsyncStorage, Switch, Image, Linking } from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  AsyncStorage,
+  Switch,
+  Image,
+  Linking
+} from 'react-native';
 import FullLoading from '../../components/FullLoading';
 import {
   Body,
@@ -15,7 +22,6 @@ import {
 } from '../../components/styled';
 
 import { ThemeContext } from '../../config/theme';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ProBadge = ({ isPro }) => (
   <Badge primary={isPro} shadow={!isPro}>
@@ -102,6 +108,12 @@ export default class Settings extends React.PureComponent {
       console.log("Don't know how to open URI: " + url);
     }
   };
+
+  componentDidUpdate() {
+    if (!this.props.data.loading && !this.props.data.me) {
+      this._logout();
+    }
+  }
 
   _logout = () => {
     new Promise.all([

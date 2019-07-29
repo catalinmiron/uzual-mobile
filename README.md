@@ -2,6 +2,10 @@
 
 <a href="https://www.buymeacoffee.com/catalinmiron" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
+<a href="https://apps.apple.com/us/app/uzual/id1459270235?ls=1" target="_blank">
+  <img src="https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg" />
+</a>
+
 # UZUAL
 
 Feed your brains with habits for a better mood
