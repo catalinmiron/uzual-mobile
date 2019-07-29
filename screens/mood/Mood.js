@@ -110,7 +110,7 @@ export default class Mood extends React.Component {
           });
 
           const lastMood = data.moods.slice(-1);
-          if (lastMood[0].date.startsWith(date)) {
+          if (lastMood[0] && lastMood[0].date.startsWith(date)) {
             data.moods.splice(-1, 1, setMood);
           } else {
             data.moods.push(setMood);
