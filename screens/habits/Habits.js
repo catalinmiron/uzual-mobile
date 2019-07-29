@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, AsyncStorage } from 'react-native';
 import * as Icon from '@expo/vector-icons';
 import FullLoading from '../../components/FullLoading';
-import { Body, Block, Flat, FabButton } from '../../components/styled';
+import { Body, Block, Flat, Scroll, FabButton } from '../../components/styled';
 import Habit from '../../components/Habit';
 import queries from './queries.gql';
 import { start, end, current, TIME_FORMAT } from '../../utils/dayjs';
@@ -49,12 +49,21 @@ export default class Home extends React.Component {
 
   _renderEmptyState = () => {
     return (
-      <Block>
-        <Body placeholder noMargin>
-          You have no habits :-(. Most of us have habits right? So please add
-          one :)
+      <Scroll
+        contentContainerStyle={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: this.props.theme.spacing.huge
+        }}
+      >
+        <Body placeholder noMargin center>
+          You have no habits :-(
         </Body>
-      </Block>
+        <Body center placeholder>
+          Hit the + button to add one!
+        </Body>
+      </Scroll>
     );
   };
 
@@ -138,19 +147,27 @@ export default class Home extends React.Component {
       return <FullLoading />;
     }
 
+    // if (!loading && !habits) {
+    //   return this._renderEmptyState()
+    // }
+
     return (
       <React.Fragment>
-        <Flat
-          data={habits}
-          renderItem={({ item }) => (
-            <Habit
-              habit={item}
-              onSetDailyHabit={this._onSetDailyHabit}
-              onPress={this._onHabitPress}
-            />
-          )}
-          keyExtractor={item => item.id}
-        />
+        {habits.length > 0 ? (
+          <Flat
+            data={habits}
+            renderItem={({ item }) => (
+              <Habit
+                habit={item}
+                onSetDailyHabit={this._onSetDailyHabit}
+                onPress={this._onHabitPress}
+              />
+            )}
+            keyExtractor={item => item.id}
+          />
+        ) : (
+          this._renderEmptyState()
+        )}
         <FabButton onPress={this._onFabPress} big>
           <Icon.Ionicons
             name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'}
