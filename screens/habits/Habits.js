@@ -12,8 +12,9 @@ import { Notifications } from 'expo';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { scheduleMoodReminders } from '../../utils/reminders';
+import gql from 'graphql-tag';
 
-export default class Home extends React.Component {
+export default class Home extends React.PureComponent {
   static navigationOptions = {
     header: null
   };
@@ -98,29 +99,46 @@ export default class Home extends React.Component {
         __typename: 'Mutation',
         setDailyHabit: {
           __typename: 'DayHabit',
-          id: uuid(),
-          date,
+          id: dayHabit ? dayHabit.id : uuid(),
+          date: dayHabit ? dayHabit.date : date,
           done: dayHabit ? !dayHabit.done : true
         }
       },
-      update: (proxy, { data: { setDailyHabit } }) => {
+      update: async (proxy, { data: { setDailyHabit } }) => {
+        console.log('setDailyHabit: ', setDailyHabit);
         try {
-          const data = proxy.readQuery({
+          const data = await proxy.readQuery({
             query: queries.habits,
             variables: { start, end }
           });
-          const currentHabit = data.habits.find(habit => habit.id === habitId);
+
+          const clonedData = JSON.parse(JSON.stringify(data.habits));
+          const currentHabit = clonedData.find(habit => habit.id === habitId);
+          const currentHabitIndex = clonedData.findIndex(
+            habit => habit.id === habitId
+          );
 
           if (dayHabit) {
             currentHabit.habits.splice(-1, 1, setDailyHabit);
           } else {
             currentHabit.habits.push(setDailyHabit);
           }
-          proxy.writeQuery({
+
+          const newData = {
+            ...data,
+            habits: [
+              ...clonedData.slice(0, currentHabitIndex),
+              currentHabit,
+              ...clonedData.slice(currentHabitIndex + 1, data.length)
+            ]
+          };
+
+          await proxy.writeQuery({
             query: queries.habits,
             variables: { start, end },
-            data
+            data: newData
           });
+          this.forceUpdate();
           this.props.data.startPolling(POLL_INTERVAL);
         } catch (err) {
           console.error(err);
