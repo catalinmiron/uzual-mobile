@@ -71,19 +71,6 @@ export default class Settings extends React.PureComponent {
         <Wrapper style={styles.row}>
           <TouchableOpacity
             onPress={() =>
-              this._openLink('http://buymeacoffee.com/catalinmiron')
-            }
-          >
-            <Body center>Wanna support me?</Body>
-            <Image
-              source={require('../../assets/images/buymeacoffee-logo.png')}
-            />
-          </TouchableOpacity>
-        </Wrapper>
-
-        <Wrapper style={styles.row}>
-          <TouchableOpacity
-            onPress={() =>
               this._openLink(
                 'https://www.youtube.com/playlist?list=PLQocKVqyqZDQrUU7zUfFogbAO0ynvQK2j'
               )
