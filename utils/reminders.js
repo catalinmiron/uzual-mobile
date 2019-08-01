@@ -3,7 +3,7 @@ import { Notifications } from 'expo';
 import { AsyncStorage } from 'react-native';
 import { MOOD_REMINDER } from '../constants/vars';
 
-/* 
+/*
   mood reminders (8PM daily)
   habits reminders
   daily goals
@@ -17,7 +17,8 @@ import { MOOD_REMINDER } from '../constants/vars';
 // repeat (optional) (string) -- 'minute', 'hour', 'day', 'week', 'month', or 'year'.
 // (Android only) intervalMs (optional) (number) -- Repeat interval in number of milliseconds
 const scheduleMoodReminders = async () => {
-  const hasNotificationId = AsyncStorage.getItem(MOOD_REMINDER);
+  // const hasNotificationId = AsyncStorage.getItem(MOOD_REMINDER);
+  await Notifications.cancelAllScheduledNotificationsAsync();
 
   // if (hasNotificationId) {
   //   console.log('Already have a notification.');

@@ -38,7 +38,7 @@
     "react-apollo": "^2.5.5",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-safe-area-view": "^0.13.1",
-    "react-native-svg": "^9.5.3",
+    "react-native-svg": "~9.4.0",
     "react-native-view-shot": "~2.6.0",
     "react-navigation": "^3.11.0",
     "recompose": "^0.30.0",
