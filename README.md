@@ -2,9 +2,7 @@
 
 <a href="https://www.buymeacoffee.com/catalinmiron" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
-<a href="https://apps.apple.com/us/app/uzual/id1459270235?ls=1" target="_blank">
-  <img src="https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg" />
-</a>
+<a href="https://apps.apple.com/us/app/uzual/id1459270235?ls=1" target="_blank" ><img src="https://linkmaker.itunes.apple.com/images/badges/en-us/badge_appstore-lrg.svg" /></a><a href="https://play.google.com/store/apps/details?id=com.BatmanCodes.Android.Uzual" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Get_it_on_Google_play.svg"></a>
 
 # UZUAL
 
