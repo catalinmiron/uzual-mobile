@@ -100,14 +100,6 @@ const fontWeight = {
   large: '700',
   xlarge: '700'
 };
-const fontWeights = {
-  small: '500',
-  default: '500',
-  medium: '500',
-  big: '700',
-  large: '700',
-  xlarge: '700'
-};
 
 const avatar = {
   small: 50,
